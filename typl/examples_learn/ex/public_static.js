@@ -41,7 +41,7 @@ Salary.printK = function(){
 /**
  *                                 про экземпляры
  * function Salary(){
- *  this.printK = function(){  эквивалентно    Salary.prototype.printK = function(){
+ *  this.printK = function(){      !=    Salary.prototype.printK = function(){
  *  Salary.printK.call(this);                                              ...
  * }                                                                     }
  * 
