@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: baker.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: baker.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/**
+ * Напишите функцию cakes(), которая принимает рецепт (объект) 
+ * и доступные ингредиенты (тоже объект) и возвращает максимальное 
+ * количество пирожных, которые Пит может испечь (целое число). 
+ * Для простоты нет единиц измерения количества (например, 
+ * 1 фунт муки или 200 г сахара — это просто 1 или 200). 
+ * Ингредиенты, отсутствующие в объектах, можно считать равными 0.
+ * 
+ * =============== tests: =======================================
+ * must return 2
+ *  cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200});
+ *
+ * must return 0
+ *  cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}); 
+ */
+
+
+const baker = (function(){
+    /**
+     * @constructor
+     * хранится count - количество возможных выпечек.
+     */
+    function Baker(){
+        this.count = 0;
+    };
+
+
+    /**
+     * 
+     * Создать и вернуть пустой (без прототипа)
+     * объект. Используется как словарь (асоциат. массив).
+     * @returns {Object}
+     */
+    Baker.prototype.dict = function(){
+        return Object.create(null);
+    }
+
+
+    /**
+     * 
+     * Создается пустой объект, в который
+     * заносятся ключ: значение (от аргумента) данные
+     * от входного объекта. ( создается копия входного объекта).
+     * Возвращается заполненный объект.
+     * @param {Object} obj 
+     * @returns {Object}
+     */
+    Baker.prototype.getDict = function(obj){
+        let someDict = this.dict();
+        for(let [key, value] of Object.entries(obj)){
+            someDict[key] = value;
+        }
+        return someDict;
+    }
+
+
+    /**
+     * 
+     * @param {Object} recipe - объект рецепт 
+     * @param {Object} available - объект список ингридиентов 
+     * @returns {boolean} - Можно ли вообще испечь нямку имея входные ингридиенты?
+     */
+    Baker.prototype.isCanBake = function(recipe, available){
+        for(let key in recipe){
+            if(!(key in available)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * 
+     * Входные аргументы -- ссылки на объекты.
+     * Рекурсивно вычитаются от значений имеющихся ингридиентов
+     * значения из рецепта и если хоть одно вычисление даст результат &lt; 0,
+     * то выход из рекурсии. Иначе увеличить количесво выпечек.
+     * Функция именованная и должна вызыватся с контекстом чтобы изменять счетчик
+     * выпечек.
+     * @param {Object} recip - объект рецепт
+     * @param {Object} avail - объект список ингридиентов 
+     * @returns {number} - this.count - количество сделаных выпечек.
+     */
+    function recursionCalkBake(recip, avail){
+        for(let key in recip){
+            avail[key] -= recip[key];
+            if(avail[key] &lt; 0){
+                return this.count;
+            } 
+        }
+        this.count += 1;
+        return recursionCalkBake.call(this, recip, avail);
+    }
+
+
+    /**
+     * 
+     * Методу передаются входные объекты для расчета задачи.
+     * Создать копии входных аргументов, проверить что вообще
+     * можно что-либо испечь и передать копии рекурсивному методу (с this) для 
+     * вычисления результата. Результат возвращается внешней вызывающей стороне.
+     * @param {Object} recip - объект рецепт
+     * @param {Object} avail - объект список ингридиентов 
+     * @returns {number} - this.count - количество сделаных выпечек.
+     */
+    Baker.prototype.bake = function(recipe, available){
+        let recip = this.getDict(recipe);
+        let avail = this.getDict(available);
+
+        if(!this.isCanBake(recip, avail)){
+            return 0;
+        }
+    
+        return recursionCalkBake.call(this, recip, avail);
+    }
+
+    
+    var publicApi = {Baker}
+
+    return publicApi;
+}());
+
+
+function cakes(recipe, available) {
+    let x = new baker.Baker();
+  return x.bake(recipe, available);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="%25D1%2585%25D1%2580%25D0%25B0%25D0%25BD%25D0%25B8%25D1%2582%25D1%2581%25D1%258F%2520count%2520-%2520%25D0%25BA%25D0%25BE%25D0%25BB%25D0%25B8%25D1%2587%25D0%25B5%25D1%2581%25D1%2582%25D0%25B2%25D0%25BE%2520%25D0%25B2%25D0%25BE%25D0%25B7%25D0%25BC%25D0%25BE%25D0%25B6%25D0%25BD%25D1%258B%25D1%2585%2520%25D0%25B2%25D1%258B%25D0%25BF%25D0%25B5%25D1%2587%25D0%25B5%25D0%25BA..html">хранится count - количество возможных выпечек.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#baker">baker</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 05 2023 00:00:53 GMT+0300 (Москва, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
