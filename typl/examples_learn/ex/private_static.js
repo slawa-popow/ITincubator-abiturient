@@ -1,7 +1,3 @@
-"use strict"
-
-import { print } from "./mods/print.js";
-
 let Salary = (function(){
     // статические в замыкании
     let staticK = 1, staticID = 1000;
