@@ -2,56 +2,91 @@
 
 import { print } from "./mods/print.js";
 
-let Salary = (function(){
-    // статические в замыкании
-    let staticK = 1, staticID = 1000;
-    // если this это от PrivateSalary, то вернуть евоный айди
-    // иначе вернуть айди замыкания. С теми внизу тестами работает только так.
-    let getID = function(){
-        return (this instanceof PrivateSalary) ? this.staticID : staticID;
-    };
-    let getK = function(){
-        return staticK;
-    };
-    let setK = function(newK){
-        staticK = newK;
+class PalindromDict {
+  #arrStr = [];
+  #dict = {};
+  constructor(arrStr) {
+    this.#arrStr = arrStr || [];
+    this.#fill(this.#arrStr);
+  }
+
+  #fill(arrStr) {
+    this.clear();
+    for (let v of arrStr) {
+      this.add(v, []);
     }
-    
-    // Новый конструктор. Увеличивает статический айди, присваивает его себе. 
-    // для нового создаваемого экземпляра свое увеличенное (измененное) значение айди.
-    //
-    function PrivateSalary(){
-        staticID += 1;
-        
-        this.staticID = staticID;
-        this.getID = getID;
-        this.getK = getK;
-        this.setK = setK;
+    return this;
+  }
+
+  clear(){
+    if (!this.isEmpty()) {
+      for (let k in this.#dict) {
+        delete this.#dict[k];
+      }
     }
-    // к объекту функции-конструктора добавить свойство-функцию
-    // из 10-й строки этого листинга. Там работает механизм instanceof.
-    // Это для вызова Salary.getID(), а те для let sal = new Salary.(); sal.getID();
-    PrivateSalary.getID = getID;
+    return this;
+  }
 
-    return PrivateSalary;
+  isEmpty() {
+    return !Object.keys(this.#dict).length;
+  }
 
-}());
+  add(key, value) {
+    if (!this.#dict.hasOwnProperty(key)) {
+      if (Array.isArray(value)) {
+        if (value.length) {
+          this.#dict[key].push(...value);
+        } 
+      }
+      this.#dict[key] = value;
+    } else {
+      this.#dict[key].push(value);
+    }
+  }
+
+  
 
 
-let x = [];
-for (let i = 0; i < 8; i += 1){
-    x.push(new Salary());
 }
-for(let j = 0; j < x.length; j += 1){
-    print(x[j].getID())
+
+class LongPalindrome {
+  #_splitStr = [];
+  constructor(str) {
+    this.splitStr = str;
+    this.dict = new PalindromDict(this.splitStr);
+  //   for (let i of [..."1234"]){
+  //     this.dict.add(i, i);
+  //   }
+  //   this.dict.add('baa', 888);
+  //   this.dict.add('baa', 'aAAAa');
+  
+  }
+
+  get splitStr(){
+    return this.#_splitStr;
+  }
+
+  set splitStr(valueString) {
+    if (this.splitStr.length) {
+      this.#_splitStr.length = 0;
+    }
+    this.#_splitStr =  valueString.split(' ');
+  }
+
+  
+
+  
 }
-print('-'.repeat(28));
-print(x[3].getID()); // >> 1004
-print(x[0].getID()); // >> 1001
-print('\n');
-print(Salary.getID()); // >> 1008
-print('+'.repeat(28));
-// Эра существования айди началась после создания Salary на 5 стоке листинга.
-let sal = new Salary();
-print(sal.getID()); // >> 1009
-print(Salary.getID()); // >> 1009
+
+
+
+
+
+
+ var longestPalindrome=function(s){
+    let lp = new LongPalindrome(s);
+
+    return lp.dict;
+  }
+
+  print(longestPalindrome('baa asdfg'));
