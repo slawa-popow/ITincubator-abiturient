@@ -5,6 +5,7 @@ import { print } from "./mods/print.js";
 class PalindromDict {
   #arrStr = [];
   #dict = {};
+
   constructor(arrStr) {
     this.#arrStr = arrStr || [];
     this.#fill(this.#arrStr);
@@ -51,6 +52,7 @@ class PalindromDict {
 
 class LongPalindrome {
   #_splitStr = [];
+  
   constructor(str) {
     this.splitStr = str;
     this.dict = new PalindromDict(this.splitStr);
@@ -59,7 +61,7 @@ class LongPalindrome {
   //   }
   //   this.dict.add('baa', 888);
   //   this.dict.add('baa', 'aAAAa');
-  
+
   }
 
   get splitStr(){
@@ -82,9 +84,9 @@ class LongPalindrome {
 
 
 
-
+// in codewars Kata the NodeJS of 8.x version
  var longestPalindrome=function(s){
-    let lp = new LongPalindrome(s);
+    var lp = new LongPalindrome(s);
 
     return lp.dict;
   }
