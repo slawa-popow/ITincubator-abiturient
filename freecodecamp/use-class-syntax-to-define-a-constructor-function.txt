@@ -1,0 +1,8 @@
+class Vegetable {
+  constructor(v) {
+    this.name = v;
+  }
+}
+
+const carrot = new Vegetable('carrot');
+console.log(carrot.name); // Should display 'carrot'
