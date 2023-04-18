@@ -37,74 +37,136 @@ import { print } from "./mods/print.js";
 
 let mazerunner = (function(){
 
-  function AroundGo() {
-      if(this.constructor === AroundGo){
+  function ArrowGo() {
+      if(this.constructor === ArrowGo){
           throw new Error('ERROR: Должен быть переопределен.');
       }
   };
-  AroundGo.prototype.goTo = function(around) {
+  ArrowGo.prototype.goTo = function(arrow) {
       throw new Error("ERR: function of Abstract");
   }
 
 // ------------------------------------------------------
 
   function GoN() {
-      this.goTo = function(around) {
-          print('СЕВЕР ', around);
+      this.goTo = function(arrow) {
+          print('СЕВЕР ', arrow);
       };
   }
 
   function GoS() {
-      this.goTo = function(around) {
-          print('ЮГ ', around);
+      this.goTo = function(arrow) {
+          print('ЮГ ', arrow);
       };
   }
 
   function GoW() {
-      this.goTo = function(around) {
-          print('ЗАПАД ', around);
+      this.goTo = function(arrow) {
+          print('ЗАПАД ', arrow);
       };
   }
 
   function GoE() {
-      this.goTo = function(around) {
-          print('ВОСТОК ', around);
+      this.goTo = function(arrow) {
+          print('ВОСТОК ', arrow);
       };
   }
 
 // -------------------------------------------------------
 
-  GoN.prototype = Object.create(AroundGo.prototype);
-  GoS.prototype = Object.create(AroundGo.prototype);
-  GoW.prototype = Object.create(AroundGo.prototype);
-  GoE.prototype = Object.create(AroundGo.prototype);
+  GoN.prototype = Object.create(ArrowGo.prototype);
+  GoS.prototype = Object.create(ArrowGo.prototype);
+  GoW.prototype = Object.create(ArrowGo.prototype);
+  GoE.prototype = Object.create(ArrowGo.prototype);
 
 // --------------------------------------------------------
 
-  function MRunner() {
+  function Pole(maze) {
+    this.poleKeys = {
+      0: "Lost",
+      1: "Dead",
+      2: "Start",
+      3: "Finish"
+    };
+
+    this.maze = [...maze.map( (value) => {
+      return [...value];
+    })];
+
+    [this.startArr, this.finishArr] = this.findStartFinish();
+
+    this[Symbol.iterator] = function() {
+      return {
+        start: this.startArr,
+        finish: this.finishArr,
+        next() {
+          
+        },
+        [Symbol.iterator](){return this},
+      }
+    };
+
+  }
+
+// ----------------------------------------------------------
+  Pole.prototype.findStartFinish = function() {
+    const start = 2, finish = 3;
+    let coordsStart = null, coordsFinish = null;
+    let mazeLen = this.maze.length;
+    for (let i = 0; i < mazeLen; i += 1) {
+      for (let j = 0; j < mazeLen; j += 1) {
+        if (coordsStart && coordsFinish) {
+          return [coordsStart, coordsFinish];
+        } else {
+            if (this.maze[i][j] === start) {
+              coordsStart = [i, j];
+            }
+            if (this.maze[i][j] === finish) {
+              coordsFinish = [i, j];
+            }
+        }
+      }
+    }
+    return [coordsStart, coordsFinish];
+  } 
+// ----------------------------------------------------------
+
+  function MRunner(maze) {
       this._go = null;
+      this._directions = null;
+      this.pole = new Pole(maze);
+
       this.strategy = {
-        goN: new GoN(),
-        goS: new GoS(),
-        goW: new GoW(),
-        goE: new GoE()
+        N: new GoN(),
+        S: new GoS(),
+        W: new GoW(),
+        E: new GoE()
       };
-      
 
       Object.defineProperties(this, {
         go: {
           get: function() {
               return this._go;
           },
-          set: function(aroundObj) {
-              this._go = aroundObj;
+          set: function(arrowObj) {
+              this._go = arrowObj;
+              //this.pole.goTo = arrowObj;
           }
+        },
+        directions: {
+          get: function() {
+            return (this._directions != null) ? this._directions : [0];
+          },
+          set: function(arrDirections) {
+            this._directions = [...arrDirections];
+          } 
         }
       });
 
-      this.goTo = function(around) {
+
+      this.goTo = function() {
         if (this.go) {
-          this.go.goTo(around);
+          this.go.goTo.call(this.pole);
         }
       }
   }
@@ -114,17 +176,19 @@ let mazerunner = (function(){
 })();
 
 function mazeRunner(maze, directions) {
-  let r = new mazerunner.MRunner();
-  r.go = r.strategy.goE;
-  r.goTo('E');
-  r.goTo('E');
-  r.go = r.strategy.goN;
-  r.goTo('N');
-  r.goTo('N');
-  r.goTo('N');
-
-  return r;
+  let r = new mazerunner.MRunner(maze);
+  r.directions = directions;
+  
+  return r.pole;
 }
 
 
-print(mazeRunner())
+print(mazeRunner([
+  [1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,3],
+  [1,0,1,0,1,0,1],
+  [0,0,1,0,0,0,1],
+  [1,0,1,0,1,0,1],
+  [1,0,0,0,0,0,1],
+  [1,2,1,0,1,0,1]
+], ["N","N","N","N","N","E","E","E","E","E"]));
