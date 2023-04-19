@@ -244,7 +244,7 @@ const mazerunner = (function(){
      * Итерация по массиву направлений.
      * Передать символ направления для назначения алгоритма
      * движения, сделать шаг по лабиринту (про итератор pole),
-     * вернуть, если найден, финиш, или мертв.
+     * завершить проход в цикле, если найден, финиш, или мертв.
      * После цикла результат движений по лабиринту.
      * @returns {string}
      */
@@ -253,7 +253,7 @@ const mazerunner = (function(){
       if (this.directions) {
         for (let direct of this.directions) {
           resultSteps = this.nextStep(direct);
-          if ((resultSteps === 3) || (resultSteps == 1)) { break; } 
+          if ((resultSteps === 3) || (resultSteps === 1)) { break; } 
         }
   
         return this.pole.poleKeys[resultSteps];
