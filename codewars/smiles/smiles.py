@@ -13,7 +13,7 @@ class Smile:
     def __init__(self, arr: list) -> None:
         self.arr: tuple = tuple(arr)
         self.permissionAll: tuple = self.getAllPermissionsPartOfFace()
-        self.countSmiles = 0
+        self.countSmiles: int = 0
 
 
     def getCountSmiles(self) -> int:
@@ -26,19 +26,19 @@ class Smile:
 
     def isPermissionFace(self, face: str) -> bool:
         eye, nose, mouth = face if len(face) == 3 else (face[0], '-', face[1])
-        setFace = set(face)
+        setFace: set = set(face)
         return all(list(map(lambda x: x in self.permissionAll, face))) and \
            (1 < len(setFace) <= 3) and self.isEye(eye) and self.isNose(nose) and \
             self.isMouth(mouth)
 
 
-    def isEye(self, value) -> bool:
+    def isEye(self, value: str) -> bool:
         return value in self.__class__._permissionEye
 
-    def isNose(self, value) -> bool:
+    def isNose(self, value: str) -> bool:
         return value in self.__class__._permissionNose
 
-    def isMouth(self, value) -> bool:
+    def isMouth(self, value: str) -> bool:
         return value in self.__class__._permissionMouth
 
 
