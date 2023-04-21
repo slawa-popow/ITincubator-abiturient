@@ -42,7 +42,7 @@
               this.countSmiles += 1;
             }
           }
-          return this.countSmiles;
+          return this.countSmiles;  
         }
       
         /**
@@ -116,7 +116,7 @@
       
       }
 
-      
+
       
       function countSmileys(arr) {
         const smiles = new Smiles(arr);

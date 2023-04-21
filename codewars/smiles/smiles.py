@@ -50,4 +50,4 @@ def count_smileys(arr):
     return smile.getCountSmiles()
 
 
-print(count_smileys([':D',':~)',';~D',':)']))
+# print(count_smileys([':D',':~)',';~D',':)']))
