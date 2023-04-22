@@ -1,0 +1,6 @@
+function confirmEnding(str, target) {
+  let s = str.slice(str.length - target.length) === target;
+  return s;
+}
+
+confirmEnding("Bastian", "n");
