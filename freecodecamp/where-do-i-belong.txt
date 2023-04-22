@@ -1,0 +1,11 @@
+function getIndexToIns(arr, num) {
+  let sortArr = [...arr];
+  sortArr.push(num);
+  sortArr.sort((a, b) => {
+    return a - b;
+  });
+  
+  return sortArr.indexOf(num);
+}
+
+getIndexToIns([40, 60], 50);
