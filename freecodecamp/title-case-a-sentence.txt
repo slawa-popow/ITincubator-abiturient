@@ -1,0 +1,13 @@
+function titleCase(str) {
+  let s = str.split(" ").map( (w) => {
+    let firstSym = w[0].toUpperCase();
+    let allStr = w.slice(1).toLowerCase();
+    if (w === 'the' || w === 'of') {
+      return w.toUpperCase();
+    }
+    return firstSym + allStr;
+  });
+  return s.join(' ');
+}
+
+titleCase("I'm a little tea pot");
