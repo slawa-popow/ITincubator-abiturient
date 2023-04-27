@@ -1,0 +1,9 @@
+Array.prototype.myMap = function(callback) {
+  const newArray = [];
+  // Only change code below this line
+  this.forEach( (v, i, a) => {
+    newArray.push(callback(v, i, a));
+  });
+  // Only change code above this line
+  return newArray;
+};
