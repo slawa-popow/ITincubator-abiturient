@@ -1,18 +1,14 @@
 "use strict"
+// http://127.0.0.1:5500/typl/examples_learn/exam.html
 
 import { print } from "./mods/print.js";
 
-
-function myRange(start, stop, step=1) { 
-  return Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
+function squareSum(numbers){
+  return numbers.reduce( (pv, cv) => {
+    return pv + cv**2;
+  }, 0);
 }
 
-function getSum(a, b) {
-  console.log(a, b);
-  let [aa, bb] = (a < b) ? [b, a] : [a, b];
-   return myRange(aa, bb).reduce( (pV, cV) => {
-    return pV + cV;
-   }, 0);
-}
-
-print(getSum(0, -1));
+print(squareSum(
+  []
+));
