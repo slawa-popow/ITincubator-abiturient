@@ -1,6 +1,7 @@
-import { funXXX } from "./navigator";
+import { Navigator } from "./navigator";
 
-console.log(funXXX('Ok AH'));
+const navigation = new Navigator("content");
+navigation.init();
 
 
 
