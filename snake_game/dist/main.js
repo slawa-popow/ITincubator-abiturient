@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log(("Ok AH",[..."Ok AH"].join("%")))})();
