@@ -21,9 +21,8 @@ export class ContentPage extends ABCContentPage {
 
 export function delDecorator(makeMethod) {
     return function(evn) {
-        // console.log('decorator ', this);
         this.deleteContent();
-        makeMethod.call(this, evn);
+        makeMethod.call(this, evn);  // c контекстом
     };
 } 
 

@@ -53,13 +53,34 @@
              
     }
 
+   
+    .foot {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .data-info, .author {
+        display: flex;
+        flex-flow: row wrap;
+        width: 45%;
+        font-size: 0.9em;
+        color: #5b5b5bc0;
+        justify-content: center;
+        padding-top: 40px;
+    }
+    .author a:link {
+        color: rgba(139, 122, 25, 0.633);
+      }
+
     .title h1, h4 {
         text-align: center;
     }
     .title h1 {
         font-family: 'Montserrat', sans-serif;
         font-size: 2.2em;
-        font-weight: 300;
+        font-weight: 400;
         padding: 10px 0;
     }
     .bottom-shadow {
@@ -73,8 +94,10 @@
 
     .navigation {
         display: flex;
+        
         height: 75px;
         flex-flow: row nowrap;
+        flex-direction: row-reverse;
         justify-content: space-around;
         align-items: center;
     }
@@ -86,10 +109,16 @@
     
    }
    
-
    .view-content {
     margin: 30px auto;
     width: 90%;
     height: 400px;
-    
+   }
+
+   /* add in createTitleH1() - стиль h1 разделов страниц (Главная страница, Начать игру)*/
+   .main-title-page h1{
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
    }

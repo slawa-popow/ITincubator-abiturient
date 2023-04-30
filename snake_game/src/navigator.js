@@ -21,17 +21,16 @@ class Navigator {
     }
 
     init() {
-        
         for (let [cls, details] of Object.entries(Navigator.detailsInstances)) {
             let [nameInstance, detailTitle] = Object.entries(details)[0];
-            // console.log(typeof cls, detailTitle[0]);
-            let instancePage = new Navigator.classes[cls](detailTitle[0]); 
+            
+            let instancePage = new Navigator.classes[cls](detailTitle[0]); // Это не пайтон!
             instancePage.container = this.container;
             let clickPageIco = document.getElementById(detailTitle[1]);
-            clickPageIco.addEventListener('click', instancePage.makeContent.bind(instancePage));
+            clickPageIco.addEventListener('click', instancePage.makeContent.bind(instancePage));  // связать с this
             this[nameInstance] = instancePage;
         }
-        // console.log(this.homePage);
+        
         this.homePage.makeContent();
     }
 }

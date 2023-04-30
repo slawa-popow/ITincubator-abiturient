@@ -5,11 +5,11 @@ export class HomePage extends ContentPage {
 
     constructor(title) {
         super(title);
-        this.makeContent = delDecorator.call(this, this.makeContent);
+        this.makeContent = delDecorator(this.makeContent);
     }
 
     makeContent(event) {
-        let titleObj = createTitleH1(this.title);
+        let titleObj = createTitleH1.call(this, this.title);
         this.container.appendChild(titleObj);
     }
 
