@@ -77,7 +77,7 @@ const iconsHover = (function() {
             play.style.cursor = 'pointer';
         } else if ((event.type === "mouseout") && (event.target.id === 'ico_play' ||
                 (event.target.id === 'path_play'))) {
-            noSelect.call(this, pathPlay);
+            noSelect(pathPlay);
             play.style.cursor = 'default';
         } else if ((event.type === "mouseover") && (event.target.id === 'ico_home' ||
                 (event.target.id === 'path_home'))) {
@@ -85,7 +85,7 @@ const iconsHover = (function() {
             home.style.cursor = 'pointer';
         } else if ((event.type === "mouseout") && (event.target.id === 'ico_home' ||
                 (event.target.id === 'path_home'))) {
-            noSelect.call(this, pahtHome);
+            noSelect(pahtHome);
             home.style.cursor = 'default';
         }
     }
@@ -94,9 +94,9 @@ const iconsHover = (function() {
 
 const play = iconsHover.play;
 const home = iconsHover.home;
-play.addEventListener('mouseover', iconsHover.selectMouse);
-play.addEventListener('mouseout', iconsHover.selectMouse);
-home.addEventListener('mouseover', iconsHover.selectMouse);
-home.addEventListener('mouseout', iconsHover.selectMouse);
+play.onmouseover = iconsHover.selectMouse;
+play.onmouseout = iconsHover.selectMouse;
+home.onmouseover = iconsHover.selectMouse;
+home.onmouseout = iconsHover.selectMouse;
 </script>
 </html>
