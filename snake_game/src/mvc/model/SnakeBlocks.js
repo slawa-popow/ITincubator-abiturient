@@ -15,17 +15,38 @@ export class SnakeBlocks extends BaseGameBlock {
         };  
     }
 
+    get posX() {
+        return this.positionX;
+    }
+
+    set posX(newPos) {
+        this.positionX = parseInt(newPos);
+    }
+
+    get posY() {
+        return this.positionY;
+    }
+
+    set posY(value) {
+        this.positionY = parseInt(value);
+    }
+
     get direction() {
         return this.#direction;
     }
 
     set direction(valueStr) {
-        this.#direction = (this.moveState.hasOwnProperty(valueStr)) ? this.moveState[valueStr] : null;
+        this.#direction = (this.moveState.hasOwnProperty(valueStr)) ?
+                           this.moveState[valueStr] : null;
     }
 
     step() {
+        if (!this.direction) {
+            throw new Error('Не назначен метод this.direction');
+        }
         this.direction();
     }
 }
 
+// Впрыснуть миксин в прототип класса (BaseGameBlock)
 Object.assign(SnakeBlocks.prototype, moveMixin);
