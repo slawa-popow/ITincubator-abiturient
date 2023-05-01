@@ -1,6 +1,12 @@
 import { Navigator } from "./navigator";
+
 import { Field } from "./mvc/model/Field";
 import { Apple } from "./mvc/model/Apple";
+import { Head } from "./mvc/model/Head";
+import { Tail } from "./mvc/model/Tail";
+
+
+
 
 /**
  * Точка входа.
@@ -17,3 +23,17 @@ let a = new Apple(40, 50, 10, 20);
 f.init(a);
 console.log(f);
 
+let sn = new Head(41, 51, 20, 30);
+let tl = new Tail(4, 5, 0, 0);
+console.log(sn, tl);
+sn.direction = 'up';
+sn.step();
+sn.step();
+sn.step();
+console.log(sn, tl);
+tl.direction = 'left';
+tl.step();
+tl.step();
+tl.step();
+tl.step();
+console.log(sn, tl);
