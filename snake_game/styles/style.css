@@ -125,7 +125,7 @@
     font-weight: 300;
    }
 
-   .svg-game-container {
+   .style-svg-game-container {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -145,4 +145,8 @@
    #pause:active, #up-button:active, #down-button:active,
    #left-button:active, #right-button:active {
     opacity: 0.6;
+   }
+
+   h6{
+    color: rgba(81, 81, 81, 0.978);
    }
