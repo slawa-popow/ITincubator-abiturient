@@ -147,6 +147,13 @@
     opacity: 0.6;
    }
 
+   #id-debug-string {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: -30px;
+    color: rgba(64, 64, 64, 0.734);
+   }
+
    h6{
-    color: rgba(81, 81, 81, 0.978);
+    color: rgb(99, 99, 98);
    }

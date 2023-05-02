@@ -57,7 +57,7 @@ class Navigator {
             this[nameInstance] = instancePage;  // все созданные экземпляры ContentPage хранятся как атрибуты instance of Navigator.
         }
         
-        this.homePage.makeContent(); // показать Главную страницу.
+        this.playPage.makeContent(); // показать страницу начала игры.
     }
 
 }
