@@ -41,8 +41,8 @@
     }
 
     body {
-        font-size: 0.9em;
-        font-family: 'Roboto', serif;
+        font-size: 0.97em;
+        font-family: 'Roboto', sans-serif;
         max-width: 90%;
         min-height: 600px;
         background-color: white;
@@ -59,7 +59,10 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
+        height: 20px;
         margin-top: 100px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+ background-blend-mode: multiply,multiply;
     }
 
     .data-info, .author {
@@ -67,13 +70,13 @@
         flex-flow: row wrap;
         width: 45%;
         font-size: 0.9em;
-        color: #5b5b5bc0;
+        color: #f3f3f3c0;
         justify-content: center;
         
         
     }
-    .author a:link {
-        color: rgba(139, 122, 25, 0.633);
+    .author a {
+        color: rgba(209, 238, 255, 0.633);
       }
 
     .title h1, h4 {
@@ -115,6 +118,20 @@
     margin: 30px auto;
     width: 90%;
     min-height: 400px;
+    color: rgb(88, 88, 88);
+   }
+
+   .view-content p {
+    padding: 10px 0;
+   }
+
+   .view-content ul {
+    margin: 20px 0 20px 10px;
+   }
+   .view-content ul li {
+    font-style: italic;
+    list-style: disc;
+    
    }
 
    /* add in createTitleH1() - стиль h1 разделов страниц (Главная страница, Начать игру)*/
@@ -123,6 +140,7 @@
     font-size: 2em;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
+    margin-bottom: 40px;
    }
 
    .style-svg-game-container {
@@ -154,6 +172,7 @@
     color: rgba(64, 64, 64, 0.734);
    }
 
+   /* для служебных целей. Не используется */
    h6{
     color: rgb(99, 99, 98);
    }
