@@ -2,18 +2,18 @@
 
 export const moveMixin = {
     up() {
-        this.positionY++;
-    },
-
-    down() {
         this.positionY--;
     },
 
+    down() {
+        this.positionY++;
+    },
+
     left() {
-        this.positionX--;
+        this.positionX++;
     },
 
     right() {
-        this.positionX++;
+        this.positionX--;
     }
 };

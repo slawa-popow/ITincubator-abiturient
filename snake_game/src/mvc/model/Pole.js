@@ -9,10 +9,39 @@ export class Pole {
         this.height = height;
         this.matrixPole = [];
         this.snake = null;
-        
+        this.speedSnake = 100;
+        this.timer = null;
+
+        this.t = 0;
     }
 
     
+    startTimer() {
+        let tmr = setInterval(()=>{
+            
+            if (this.isValidHeadPosition()){
+              this.snake.head.step();  
+            } else if (this.snake.head.posY === this.height) {
+                this.snake.head.direction = 'up';
+                this.t = 0;
+                this.snake.head.step();
+            } else if (this.snake.head.posY === 0) {
+                this.snake.head.direction = 'down';
+                this.t = 0;
+                this.snake.head.step();
+            }
+            
+            this.view.render(this.execute());
+        }, this.speedSnake);
+        
+        return tmr;
+    }
+
+    isValidHeadPosition() {
+        let [x, y]  = this.snake.head.getPos();
+        return (((x > 0) && (x < this.width)) && ((y > 0) && (y < this.height)));
+    }
+
 
     init() {
         this.createFields();
@@ -21,7 +50,7 @@ export class Pole {
             this.snake.initSnake();
         }
         this.addSnake();
-        this.execute();
+        this.timer = this.startTimer();
     }
 
    execute() {
@@ -30,8 +59,9 @@ export class Pole {
     renderObj['head'] = snakePosits[0];
     renderObj['body'] = snakePosits[1];
     renderObj['tail'] = snakePosits[2];
+    renderObj['t'] = this.t++;
 
-    this.view.render(renderObj);
+    return renderObj;
    }
 
     createFields() {
@@ -52,7 +82,6 @@ export class Pole {
         //debugger;
        let snakeArr = this.snake.getPosition();
        let headpos = snakeArr[0];
-       
        this.matrixPole[headpos[0]][headpos[1]].init(this.snake.head);
        snakeArr[1].forEach((arr, i) => {
         this.matrixPole[arr[0]][arr[1]].init(this.snake.body[i]);
@@ -62,11 +91,8 @@ export class Pole {
     }
 
     destroy() {
-        for (let field of this.matrixPole) {
-            for (let obj of field) {
-                obj.destroy();
-            }
-            field.length = 0;
-        }
+        clearInterval(this.timer);
+        this.snake = null;
+        
     }
 }

@@ -14,9 +14,9 @@ export class Snake {
     initSnake() {
         this.applesPos = [];
         this.totalPoints = 0;  
-        this.speed = 0.1;
         this.dequeNodePath = [];
         this.head = new Head(...this.headPosition);
+        this.head.direction = 'down';
         this.body = this.#getCreateBody();  // array objects
         this.tail = this.#getCreateTail();  // object
          

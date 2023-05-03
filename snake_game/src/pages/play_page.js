@@ -15,6 +15,7 @@ export class PlayPage extends ContentPage {
 
         this.displayView = new GameDisplay("gdisplay", ["style-svg-game-container"]);
         this.pole = new Pole(this.displayView);
+        this.displayView.pole = this.pole;
     }
 
 
@@ -27,7 +28,6 @@ export class PlayPage extends ContentPage {
         this.container.appendChild(titleObj);
 
         this.container.appendChild(createSpan("id-debug-string"));
-
         this.displayView.initDisplay(this.container);
         this.pole.init(...this.displayView.getSizeDisplay());
 
@@ -38,8 +38,11 @@ export class PlayPage extends ContentPage {
      * Удалить всё из контейнера контента
      */
     deleteContent() {
+        
         this.displayView.destroy();
+        
         super.deleteContent();
+        this.pole.destroy();
     }
 
 

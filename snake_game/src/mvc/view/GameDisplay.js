@@ -9,18 +9,29 @@ export class GameDisplay {
         this.idDisplay = idSVGdisplay;
         this.classStyles = [...arrClassStyles];
         this.blocksPole = {};
-
+        
+        this.valuesPole = null;
+        this.pole = null;
     }
 
     render(gameObjects) {
+        this.clearPole();
         let head = gameObjects.head.join('#');
         let bodyArr = gameObjects.body.map(v => {
             return v.join('#');
         });
         let tail = gameObjects.tail.join('#');
-        this.blocksPole[head].setAttribute('fill', 'rgb(214, 214, 248)');
+       
         for (let sn of [...bodyArr, tail]) {
             this.blocksPole[sn].setAttribute('fill', 'rgba(64, 64, 64, 0.634)');
+        }
+         this.blocksPole[head].setAttribute('fill', 'rgb(214, 214, 248)');  // svg z-index - последний отрисовался - над всеми показался
+        this.debugspan.textContent = `${gameObjects['t']}`;
+    }
+
+    clearPole() {
+        for (let cell of this.valuesPole) {
+            cell.setAttribute('fill', 'rgb(238, 244, 211)');
         }
     }
 
@@ -32,7 +43,11 @@ export class GameDisplay {
         this.debugspan = document.getElementById('id-debug-string');
         [this.width, this.height] = this.getSizeDisplay();
         this.drawGrid();
+        this.valuesPole = Object.values(this.blocksPole);
+        
     }
+
+    
 
     getSizeDisplay() {
         this.display = document.getElementById(this.idDisplay);
