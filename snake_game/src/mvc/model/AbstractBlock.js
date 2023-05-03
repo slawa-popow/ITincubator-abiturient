@@ -7,9 +7,6 @@ export class AbstractBlock {
         if (new.target === AbstractBlock) {
             throw new TypeError("Cannot construct AbstractClass instances directly");
         }
-
-        this.width = null;
-        this.height = null;
         this.positionX = null;
         this.positionY = null;
         this.type = null;

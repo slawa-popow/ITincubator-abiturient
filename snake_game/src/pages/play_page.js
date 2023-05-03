@@ -14,7 +14,7 @@ export class PlayPage extends ContentPage {
         this.makeContent = delDecorator(this.makeContent);  // декорированный метод this.makeContent(event)
 
         this.displayView = new GameDisplay("gdisplay", ["style-svg-game-container"]);
-        this.pole = new Pole();
+        this.pole = new Pole(this.displayView);
     }
 
 

@@ -12,6 +12,18 @@ export class GameDisplay {
 
     }
 
+    render(gameObjects) {
+        let head = gameObjects.head.join('#');
+        let bodyArr = gameObjects.body.map(v => {
+            return v.join('#');
+        });
+        let tail = gameObjects.tail.join('#');
+        this.blocksPole[head].setAttribute('fill', 'rgb(214, 214, 248)');
+        for (let sn of [...bodyArr, tail]) {
+            this.blocksPole[sn].setAttribute('fill', 'rgba(64, 64, 64, 0.634)');
+        }
+    }
+
     initDisplay(container) {
         this.container = container;
         let div = getdiv(this.classStyles);

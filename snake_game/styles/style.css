@@ -165,14 +165,16 @@
     opacity: 0.6;
    }
 
-   #id-debug-string {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: -30px;
+   #id-debug-string{
+    display: block;
+    width: 10%;
+    margin: 0 auto;
+    margin-bottom: -25px;
+    padding-top: 10px;
     color: rgba(64, 64, 64, 0.734);
    }
 
    /* для служебных целей. Не используется */
    h6{
-    color: rgb(99, 99, 98);
+    color: rgb(146, 146, 78);
    }

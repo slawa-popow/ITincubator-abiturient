@@ -2,10 +2,8 @@ import { AbstractBlock } from "./AbstractBlock";
 import { BasePoleBlock } from "./BasePoleBlock";   
 
 export class Field extends BasePoleBlock {
-    constructor(width, height) {
+    constructor() {
         super();
-        this.width = width;
-        this.height = height;
     }
 
     init(obj) {
@@ -18,4 +16,6 @@ export class Field extends BasePoleBlock {
     destroy() {
         this.type = null;
     }
+
+
 }

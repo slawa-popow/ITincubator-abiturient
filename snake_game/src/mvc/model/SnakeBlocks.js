@@ -5,14 +5,18 @@ export class SnakeBlocks extends BaseGameBlock {
 
     #direction = null;
 
-    constructor(width, height, positionX, positionY) {
-        super(width, height, positionX, positionY);
+    constructor(positionX, positionY) {
+        super(positionX, positionY);
         this.moveState = {
             'up': this.up,
             'down': this.down,
             'left': this.left,
             'right': this.right
         };  
+    }
+
+    getPos() {
+        return [this.posX, this.posY];
     }
 
     get posX() {
