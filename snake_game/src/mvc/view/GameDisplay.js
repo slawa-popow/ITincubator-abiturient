@@ -26,7 +26,7 @@ export class GameDisplay {
             this.blocksPole[sn].setAttribute('fill', 'rgba(64, 64, 64, 0.634)');
         }
          this.blocksPole[head].setAttribute('fill', 'rgb(214, 214, 248)');  // svg z-index - последний отрисовался - над всеми показался
-        this.debugspan.textContent = `${gameObjects['t']}`;
+        
     }
 
     clearPole() {

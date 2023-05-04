@@ -16,10 +16,10 @@ export class Snake {
         this.totalPoints = 0;  
         this.dequeNodePath = [];
         this.head = new Head(...this.headPosition);
-        this.head.direction = 'down';
+        //this.head.direction = 'down';
         this.body = this.#getCreateBody();  // array objects
         this.tail = this.#getCreateTail();  // object
-         
+        this.directionSnake('up'); 
     }
 
     getPosition() {
@@ -46,6 +46,37 @@ export class Snake {
         let endBodyObj = this.body[this.body.length-1];
         let [endBodyX, endBodyY] = [endBodyObj.posX, endBodyObj.posY];
         return new Tail(endBodyX, endBodyY-1)
+    }
+
+    directionSnake(direction) {
+        let sn = [this.head, ...this.body, this.tail];
+        let posts = this.getPosition();
+        sn.forEach(s => {
+                    s.direction = direction;
+                });
+        if (direction === 'down') {
+                let newHeadArr = this.head.getPos();
+                this.head.positionX = this.tail.positionX;
+                this.head.positionY = this.tail.positionY;
+                [this.tail.positionX, this.tail.positionY] = newHeadArr;
+                
+            }
+            
+            else if (direction === 'up') {
+                let newHeadArr = this.head.getPos();
+                this.head.positionX = this.tail.positionX;
+                this.head.positionY = this.tail.positionY;
+                [this.tail.positionX, this.tail.positionY] = newHeadArr;
+                
+            }
+        
+    }
+
+    step() {
+        let sn = [this.head, ...this.body, this.tail];
+        sn.forEach(s => {
+            s.step();
+        }); 
     }
 
     

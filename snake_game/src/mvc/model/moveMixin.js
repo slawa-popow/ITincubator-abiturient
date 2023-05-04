@@ -15,5 +15,8 @@ export const moveMixin = {
 
     right() {
         this.positionX--;
+    },
+    stop() {
+        // pass
     }
 };

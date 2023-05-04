@@ -11,7 +11,8 @@ export class SnakeBlocks extends BaseGameBlock {
             'up': this.up,
             'down': this.down,
             'left': this.left,
-            'right': this.right
+            'right': this.right,
+            'stop': this.stop
         };  
     }
 

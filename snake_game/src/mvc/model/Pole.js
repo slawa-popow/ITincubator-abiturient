@@ -12,7 +12,7 @@ export class Pole {
         this.speedSnake = 100;
         this.timer = null;
 
-        this.t = 0;
+        
     }
 
     
@@ -20,15 +20,13 @@ export class Pole {
         let tmr = setInterval(()=>{
             
             if (this.isValidHeadPosition()){
-              this.snake.head.step();  
+                this.snake.step();
             } else if (this.snake.head.posY === this.height) {
-                this.snake.head.direction = 'up';
-                this.t = 0;
-                this.snake.head.step();
+                this.snake.directionSnake('up');
+                this.snake.step();
             } else if (this.snake.head.posY === 0) {
-                this.snake.head.direction = 'down';
-                this.t = 0;
-                this.snake.head.step();
+                this.snake.directionSnake('down');
+                this.snake.step();
             }
             
             this.view.render(this.execute());
@@ -59,7 +57,7 @@ export class Pole {
     renderObj['head'] = snakePosits[0];
     renderObj['body'] = snakePosits[1];
     renderObj['tail'] = snakePosits[2];
-    renderObj['t'] = this.t++;
+    
 
     return renderObj;
    }
