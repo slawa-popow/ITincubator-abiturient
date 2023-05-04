@@ -1,0 +1,9 @@
+function diffArray(first, second) {
+  return [
+    ...first.filter(x => !second.includes(x)),
+    ...second.filter(x => !first.includes(x))
+];
+  
+}
+
+diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);

@@ -1,0 +1,10 @@
+function destroyer(arr) {
+ 
+  return arguments[0].filter( v => {
+    return [...arguments].slice(1).every(ev => {
+      return (ev !== v);
+    });
+  });
+}
+
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);

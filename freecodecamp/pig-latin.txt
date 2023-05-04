@@ -1,0 +1,18 @@
+function translatePigLatin(str) {
+  const A = 'auioe';
+  let result = '';
+  if (A.includes(str[0].toLowerCase())) {
+    return str + 'way';
+  } else {
+    let bucket = '', index = 0;
+    for (let i of [...str]) {
+      if (!(A.includes(i.toLowerCase()))) {
+        bucket += i;
+        index += 1;
+      } else {break}
+    }
+    return [...str].splice(index).join('') + bucket + 'ay';
+  }
+}
+
+console.log(translatePigLatin("algorithm"));
