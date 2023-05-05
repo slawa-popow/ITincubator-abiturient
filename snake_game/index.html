@@ -70,6 +70,12 @@ const iconsHover = (function() {
         id.setAttribute('fill', colorBlack);
     }
 
+    /* Блокировка скролла страницы при нажатии на клавиши стрелок */
+    function stopKeyScroll(e) {
+	e = e || event;
+	e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+  }
+
     function selectMouse(event) {
         if ((event.type === "mouseover") && (event.target.id === 'ico_play' || 
                 (event.target.id === 'path_play'))) {
@@ -89,7 +95,7 @@ const iconsHover = (function() {
             home.style.cursor = 'default';
         }
     }
-    return { selectMouse, play, home };
+    return { selectMouse, stopKeyScroll, play, home };
 })();
 
 const play = iconsHover.play;
@@ -98,5 +104,8 @@ play.onmouseover = iconsHover.selectMouse;
 play.onmouseout = iconsHover.selectMouse;
 home.onmouseover = iconsHover.selectMouse;
 home.onmouseout = iconsHover.selectMouse;
+let tbody = document.querySelector('body');
+tbody.addEventListener('keydown', iconsHover.stopKeyScroll );
+
 </script>
 </html>

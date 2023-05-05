@@ -3,16 +3,37 @@ import { Field } from "./Field";
 
 export class Pole {
 
-    constructor(view, width=22, height=25) {        
-        this.view = view;
+    constructor(width=22, height=25) {  
+        this.observers = [];      
+        
         this.width = width;
         this.height = height;
         this.matrixPole = [];
         this.snake = null;
         this.speedSnake = 100;
         this.timer = null;
-
         
+    }
+
+    addObserver(observer) {
+        if (this.observers.indexOf(observer) < 0) {
+            this.observers.push(observer);
+        }
+    }
+
+    removeObserver(observer) {
+        let indexObserver = this.observers.indexOf(observer);
+        if (indexObserver > (-1)) {
+            this.observers.splice(indexObserver, 1);
+        }
+    }
+
+    stepSnake() {
+
+    }
+
+    changeDirectionSnake(strDirection) {
+        this.snake.directionSnake(strDirection);
     }
 
     
@@ -29,7 +50,7 @@ export class Pole {
                 this.snake.step();
             }
             
-            this.view.render(this.execute());
+            this.notify();
         }, this.speedSnake);
         
         return tmr;
@@ -51,15 +72,20 @@ export class Pole {
         this.timer = this.startTimer();
     }
 
-   execute() {
-    let renderObj = {};
-    let snakePosits = this.snake.getPosition();
-    renderObj['head'] = snakePosits[0];
-    renderObj['body'] = snakePosits[1];
-    renderObj['tail'] = snakePosits[2];
+    /**
+     * Уведомить наблюдателей (view) об изменениях модели
+     */
+    notify() {
+        let renderObj = {};
+        let snakePosits = this.snake.getPosition();
+        renderObj['head'] = snakePosits[0];
+        renderObj['body'] = snakePosits[1];
+        renderObj['tail'] = snakePosits[2];
+        
+        for (let observer of this.observers) {
+            observer.render(renderObj);
+        }
     
-
-    return renderObj;
    }
 
     createFields() {

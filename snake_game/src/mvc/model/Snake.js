@@ -16,7 +16,7 @@ export class Snake {
         this.totalPoints = 0;  
         this.dequeNodePath = [];
         this.head = new Head(...this.headPosition);
-        //this.head.direction = 'down';
+        this.currentPosition = 'stop';
         this.body = this.#getCreateBody();  // array objects
         this.tail = this.#getCreateTail();  // object
         this.directionSnake('up'); 
@@ -50,27 +50,25 @@ export class Snake {
 
     directionSnake(direction) {
         let sn = [this.head, ...this.body, this.tail];
-        let posts = this.getPosition();
+        if (this.currentPosition === direction) { return; }
+        this.currentPosition = direction;
         sn.forEach(s => {
-                    s.direction = direction;
+                    s.direction = this.currentPosition;
                 });
-        if (direction === 'down') {
+        if (this.currentPosition === 'down') {
+                let newHeadArr = this.head.getPos();
+                this.head.positionX = this.tail.positionX;
+                this.head.positionY = this.tail.positionY;
+                [this.tail.positionX, this.tail.positionY] = newHeadArr;   
+            }
+            else if (this.currentPosition === 'up') {
                 let newHeadArr = this.head.getPos();
                 this.head.positionX = this.tail.positionX;
                 this.head.positionY = this.tail.positionY;
                 [this.tail.positionX, this.tail.positionY] = newHeadArr;
-                
             }
-            
-            else if (direction === 'up') {
-                let newHeadArr = this.head.getPos();
-                this.head.positionX = this.tail.positionX;
-                this.head.positionY = this.tail.positionY;
-                [this.tail.positionX, this.tail.positionY] = newHeadArr;
-                
-            }
-        
     }
+    
 
     step() {
         let sn = [this.head, ...this.body, this.tail];

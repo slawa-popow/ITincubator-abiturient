@@ -2,6 +2,7 @@ import { ContentPage, delDecorator } from "./content_page";
 import { createTitleH1 } from "../dom_ops/create_title";
 import { GameDisplay } from "../mvc/view/GameDisplay";
 import { Pole } from "../mvc/model/Pole";
+import { Controller } from "../mvc/controller/Conrtoller";
 import { createSpan } from "../dom_ops/createSpan";
 
 /**
@@ -14,8 +15,10 @@ export class PlayPage extends ContentPage {
         this.makeContent = delDecorator(this.makeContent);  // декорированный метод this.makeContent(event)
 
         this.displayView = new GameDisplay("gdisplay", ["style-svg-game-container"]);
-        this.pole = new Pole(this.displayView);
-        this.displayView.pole = this.pole;
+        this.pole = new Pole();
+        this.controller = new Controller(this.pole, this.displayView);
+        //this.displayView.pole = this.pole;
+
     }
 
 
@@ -28,9 +31,10 @@ export class PlayPage extends ContentPage {
         this.container.appendChild(titleObj);
 
         this.container.appendChild(createSpan("id-debug-string"));
-        this.displayView.initDisplay(this.container);
-        this.pole.init(...this.displayView.getSizeDisplay());
-
+        // this.displayView.initDisplay(this.container);
+        // this.pole.init(...this.displayView.getSizeDisplay());
+        this.controller.init(this.container);
+        // console.log(this.pole.observers);
     }
 
 
@@ -39,7 +43,7 @@ export class PlayPage extends ContentPage {
      */
     deleteContent() {
         
-        this.displayView.destroy();
+        this.controller.destroy();
         
         super.deleteContent();
         this.pole.destroy();
