@@ -1,0 +1,15 @@
+function isUpper(str) {
+  let upp = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase();
+  return [...str].every(v=>{
+    return upp.includes(v);
+  });
+}
+
+function myReplace(str, before, after) {
+  let firstsym = str.indexOf(before);
+  let isBig = isUpper(str[firstsym]);
+  after = (isBig) ? after[0].toUpperCase()+after.slice(1) : after.toLowerCase();
+  return str.replace(before, after );
+}
+
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
