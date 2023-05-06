@@ -1,0 +1,29 @@
+function* zip(str) {
+  let arr = [...str];
+  for (let i of arr) {
+    switch(i) {
+      case 'A': {
+        yield ['A', 'T']; break;
+      }
+      case 'T': {
+        yield ['T', 'A']; break;
+      }
+      case 'G': {
+        yield ['G', 'C']; break;
+      }
+      case 'C': {
+        yield ['C', 'G']; break;
+      }
+    }
+  }
+}
+
+function pairElement(str) {
+  let result = [];
+  for (let res of zip(str)) {
+    result.push(res);
+  }
+  return result;
+}
+
+pairElement("GCG");
