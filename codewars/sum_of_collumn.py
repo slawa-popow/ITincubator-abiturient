@@ -1,7 +1,21 @@
 #
-#   сложение в столбик строковых чисел
+#   сложение в столбик строковых чисел + декоратор времени выполнения
 #
+from time import perf_counter_ns
+from functools import wraps
+from typing import Callable
 
+def deco_time_big_sum(func: Callable) -> Callable:
+    @wraps(func)
+    def wrapper(a, b):
+        begin_time = perf_counter_ns() / 1000
+        res = func(a, b)
+        print(perf_counter_ns() / 1000 - begin_time)
+        return res
+
+    return wrapper
+
+@deco_time_big_sum
 def big_sum(a: str, b: str) -> int:
     result, rest, sum_ij = '', 0, 0
     max_len_ab = max(len(a), len(b))
