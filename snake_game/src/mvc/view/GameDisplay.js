@@ -93,13 +93,13 @@ export class GameDisplay {
     }
 
     rightButton(event) {
-
+        this.pole.changeDirectionSnake('right');
     }
     downButton(event) {
         this.pole.changeDirectionSnake('down');
     }
     leftButton(event) {
-
+        this.pole.changeDirectionSnake('left');
     }
     pauseButton(event) {
 

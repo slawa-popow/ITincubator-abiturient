@@ -10,11 +10,11 @@ export const moveMixin = {
     },
 
     left() {
-        this.positionX++;
+        this.positionX--;
     },
 
     right() {
-        this.positionX--;
+        this.positionX++;
     },
     stop() {
         // pass

@@ -39,18 +39,21 @@ export class Pole {
     
     startTimer() {
         let tmr = setInterval(()=>{
-            
-            if (this.isValidHeadPosition()){
-                this.snake.step();
-            } else if (this.snake.head.posY === this.height) {
+            let isvalid = this.isValidHeadPosition(); 
+             if (this.snake.head.posY === this.height) {
                 this.snake.directionSnake('up');
-                this.snake.step();
             } else if (this.snake.head.posY === 0) {
                 this.snake.directionSnake('down');
+            } else if (this.snake.head.posX <= 0) {
+                this.snake.directionSnake('right');
+            } else if (this.snake.head.posX === this.width) {
+                this.snake.directionSnake('left');
+            } if (isvalid){
                 this.snake.step();
             }
             
             this.notify();
+            
         }, this.speedSnake);
         
         return tmr;
@@ -58,7 +61,7 @@ export class Pole {
 
     isValidHeadPosition() {
         let [x, y]  = this.snake.head.getPos();
-        return (((x > 0) && (x < this.width)) && ((y > 0) && (y < this.height)));
+        return (((x >= 0) && (x <= this.width)) && ((y > 0) && (y < this.height)));
     }
 
 

@@ -16,10 +16,10 @@ export class Snake {
         this.totalPoints = 0;  
         this.dequeNodePath = [];
         this.head = new Head(...this.headPosition);
-        this.currentPosition = 'stop';
+        this.currentPosition = 'down';
         this.body = this.#getCreateBody();  // array objects
         this.tail = this.#getCreateTail();  // object
-        this.directionSnake('up'); 
+        this.directionSnake('stop'); 
     }
 
     getPosition() {
@@ -55,20 +55,37 @@ export class Snake {
         sn.forEach(s => {
                     s.direction = this.currentPosition;
                 });
+        // debugger;
+        let head = this.head.getPos();
+        let tail = this.tail.getPos();
         if (this.currentPosition === 'down') {
-                let newHeadArr = this.head.getPos();
-                this.head.positionX = this.tail.positionX;
-                this.head.positionY = this.tail.positionY;
-                [this.tail.positionX, this.tail.positionY] = newHeadArr;   
-            }
-            else if (this.currentPosition === 'up') {
-                let newHeadArr = this.head.getPos();
-                this.head.positionX = this.tail.positionX;
-                this.head.positionY = this.tail.positionY;
-                [this.tail.positionX, this.tail.positionY] = newHeadArr;
+              this.upPos(head, tail);
+        } else if (this.currentPosition === 'up') {
+               this.dwnPos(head, tail);  
             }
     }
-    
+
+
+    upPos(head, tail) {
+        if (head[1] > tail[1]){
+            [this.head.posX, this.head.posY] = head;
+            [this.tail.posX, this.tail.posY] = tail; 
+        } else {
+            [this.head.posX, this.head.posY] = tail;
+            [this.tail.posX, this.tail.posY] = head; 
+        }
+    }
+
+    dwnPos(head, tail) {
+        if (head[1] < tail[1]){
+            [this.head.posX, this.head.posY] = head;
+            [this.tail.posX, this.tail.posY] = tail; 
+        } else {
+            [this.head.posX, this.head.posY] = tail;
+            [this.tail.posX, this.tail.posY] = head;  
+        } 
+    }
+
 
     step() {
         let sn = [this.head, ...this.body, this.tail];
