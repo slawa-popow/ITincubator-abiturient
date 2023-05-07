@@ -1,0 +1,9 @@
+function uniteUnique(...arr) {
+  let bucket = [];
+  for (let i of arr) {
+    bucket.push(...i);
+  }
+
+  return [...new Set(bucket)];
+}
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);

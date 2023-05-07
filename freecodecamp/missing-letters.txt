@@ -1,0 +1,14 @@
+function fearNotLetter(str) {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  let firstSym = str[0];
+  let fitstIndex = alphabet.indexOf(firstSym);
+  let lastSym = str[str.length-1];
+  let lastIndex = alphabet.indexOf(lastSym);
+  let sliceAlpha = alphabet.slice(fitstIndex, lastIndex + 1);
+  let result = [...sliceAlpha].filter( v => {
+    return !(str.includes(v));
+  });
+  return (result.length > 0) ? result.join('') : undefined;
+}
+
+fearNotLetter("abce");
