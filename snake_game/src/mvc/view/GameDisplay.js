@@ -25,6 +25,7 @@ export class GameDisplay {
             this.pauseButton
         ];
         this.keyboard = [];                         // svg объекты кнопок на картинке
+        
     }
 
 
@@ -42,10 +43,12 @@ export class GameDisplay {
         let tail = gameObjects.tail.join('#');
         // далее отрисовать змейку
         for (let sn of [...bodyArr, tail]) {
-            this.blocksPole[sn].setAttribute('fill', 'rgba(64, 64, 64, 0.634)');
+            this.blocksPole[sn].setAttribute('fill', 'rgba(64, 64, 64, 0.634)');  // цвет тела
         }
-         this.blocksPole[head].setAttribute('fill', 'rgb(214, 214, 248)');  // svg z-index - последний отрисовался - над всеми показался
-        
+        this.blocksPole[head].setAttribute('fill', 'rgba(45, 130, 220, 0.637)');  // svg z-index - последний отрисовался - над всеми показался
+        let apple = gameObjects['apple'].join('#');
+        this.blocksPole[apple].setAttribute('fill', 'rgba(11, 101, 1, 0.448)');  // цвет яблока
+        this.viewTotalPoints(gameObjects['total']);
     }
 
 
@@ -105,6 +108,9 @@ export class GameDisplay {
             case "ArrowDown":   // если нажата клавиша вниз
                 this.downButton(event);
                 break;
+            case " ":      // если нажата клавиша пробел
+                this.pauseButton(event);
+                break;
         }
     }
 
@@ -124,8 +130,10 @@ export class GameDisplay {
         this.controller.setDirectionSnake('left');
     }
     pauseButton(event) {
-
+        this.controller.setDirectionSnake('stop');
     }
+
+    
     // --------------------------------------------------------------------------------
 
     /**
@@ -173,6 +181,10 @@ export class GameDisplay {
 
     }
 
+    viewTotalPoints(total) {
+        this.debugspan.textContent = `Очки: ${total}`;
+    }
+
     #mouseOverHandle(obj, e) {
         obj.setAttribute('fill', 'rgba(64, 64, 64, 0.834)');
         this.debugspan.textContent = `[x, y]: [${obj.id.split('#')}]`;
@@ -180,7 +192,7 @@ export class GameDisplay {
 
     #mouseOutHandle(obj, e) {
         obj.setAttribute('fill', 'rgb(238, 244, 211)');
-        this.debugspan.textContent = 'x y: ';
+        this.debugspan.textContent = 'Очки: ';
     }
 
 

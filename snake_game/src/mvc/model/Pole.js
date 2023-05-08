@@ -1,5 +1,7 @@
 import { Snake } from "./Snake";
 import { Field } from "./Field";
+import { Apple } from "./Apple";
+
 
 
 /**
@@ -19,7 +21,7 @@ export class Pole {
         this.snake = null;      // змея. Только объявление. 
         this.speedSnake = 150;  // скорость движения змеи (частота отрисовки.(задержка таймера миллсек.))
         this.timer = null;      // объект таймера. Только объявление
-        
+        this.apple = null;
     }
 
 
@@ -43,10 +45,6 @@ export class Pole {
         if (indexObserver > (-1)) {
             this.observers.splice(indexObserver, 1);
         }
-    }
-
-    stepSnake() {
-
     }
 
 
@@ -77,7 +75,7 @@ export class Pole {
             } if (isvalid){                                     // если голова змеи в рамках игрового поля,
                 this.snake.step();                              // то голова делает шаг.
             }
-            
+            this.recalcSnakePosition();
             this.notify();                                      // уведомить view о движухе в модели
             
         }, this.speedSnake);
@@ -94,6 +92,29 @@ export class Pole {
         return (((x >= 0) && (x <= this.width)) && ((y >= 0) && (y <= this.height)));
     }
 
+    /**
+     * Очистить поле, добавить объекты заново, 
+     * если голова нашла яблоко, то добавить 
+     * к змейке еще блок и добавить новое яблоко
+     * на поле
+     */
+    recalcSnakePosition() {
+        for (let i = 0; i < this.width; i += 1) {
+            for (let j = 0; j <= this.height; j++) {
+                this.matrixPole[i][j].destroy();   
+            }
+        }
+        let [appleX, appleY] = this.apple.getPos();
+        this.addSnake();
+        let [headX, headY] = this.snake.head.getPos();
+        if ((headX === appleX) && (headY === appleY)) {
+            this.totalPoints += 1;
+            this.snake.addBlockToBody(appleX, appleY);
+            [this.apple.positionX, this.apple.positionY] = this.getPositsApple();
+        }
+        this.matrixPole[appleX][appleY].init(this.apple);
+    }
+
 
     /**
      * Инициализация модели.
@@ -102,12 +123,17 @@ export class Pole {
      * запустить игровой цикл.
      */
     init() {
+        this.totalPoints = 0;         // количество набранных очков в игре
         this.createFields();
+        this.deniedCoordinates = this.createDeniedCoordinates(); // координаты первых полей по контуру, там нельзя вставить яблоко 
         if (this.snake == null) {
-            this.snake = new Snake([12, 10], 5);
+            this.snake = new Snake([12, 10], 1);
             this.snake.initSnake();
         }
         this.addSnake();
+        let [randX, randY] = this.getPositsApple();
+        this.apple = new Apple(randX, randY);
+        this.matrixPole[randX][randY].init(this.apple);
         this.timer = this.startTimer();
     }
 
@@ -123,9 +149,11 @@ export class Pole {
         // debugger;
         let renderObj = {};     // создать посылку
         let snakePosits = [...this.snake.getPosition()];    // заполнить посылку
-        renderObj['head'] = snakePosits[0];
+        renderObj['head'] = snakePosits[0];                 // ...
         renderObj['body'] = snakePosits[1];
         renderObj['tail'] = snakePosits[2];
+        renderObj['apple'] = this.apple.getPos();
+        renderObj['total'] = this.totalPoints;
         
         for (let observer of this.observers) {
             observer.render(renderObj);         // отправить посылку наблюдателям
@@ -162,6 +190,48 @@ export class Pole {
        });
        this.matrixPole[snakeArr[2][0]][snakeArr[2][1]].init(this.snake.head);
         
+    }
+
+    /**
+     * Генерировать координаты для яблока.
+     * координаты не должны быть равны координатам змеи
+     * и первым крайним полям игрового поля (т-к дойдя до них змея разворачивается)
+     * @returns {Array}
+     */
+    getPositsApple() {
+        let min = 0, maxX = this.width, maxY = this.height;
+        let [h, b, t] = this.snake.getPosition();  // получить текущие координаты головы, тела и хвоста       
+        let deniedCoords = [...this.deniedCoordinates, h, ...b, t];
+        let randX = Math.floor(min + Math.random() * (maxX + 1 - min));
+        let randY = Math.floor(min + Math.random() * (maxY + 1 - min));
+        
+        while (deniedCoords.some( v => {
+            return ((randX === v[0]) && (randY === v[1]));
+        } )) {
+            randX = Math.floor(min + Math.random() * (maxX + 1 - min));
+            randY = Math.floor(min + Math.random() * (maxY + 1 - min));
+        }
+        
+        return [randX, randY];
+    }
+
+    /**
+     * Вернуть массив координат крайних строк и столбов
+     * @returns {Array}
+     */
+    createDeniedCoordinates() {
+        let denied = [];
+        
+        for (let i = 0; i <= this.width; i += 1) {
+            denied.push([i, 0]);
+            denied.push([i, 25]);
+        }
+        for (let j = 0; j <= this.height; j += 1) {
+            denied.push([22, j]);
+            denied.push([0, j]);
+        }
+
+        return denied;
     }
 
     /**

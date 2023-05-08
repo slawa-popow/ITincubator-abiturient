@@ -11,19 +11,18 @@ export class Snake {
     constructor(headPosition, quantityBodyBlock=1) {
         this.quantityBB = quantityBodyBlock;            // количество блоков тела
         this.headPosition = headPosition;               // Array - координаты головы
-        this.applesPos = [];                            // координаты яблок
     }
 
     /**
      * Инициализация змеи.
      */
     initSnake() {
-        this.totalPoints = 0;                           // количество набранных очков в игре
         this.head = new Head(...this.headPosition);     // создать объект головы
-        this.currentPosition = 'down';                  // текущее направление
+        this.currentPosition = 'stop';                  // текущее направление
         this.body = this.#getCreateBody();              // Array of objects - тело змеи
         this.tail = this.#getCreateTail();              // Object хвост
         this.directionSnake('stop');                    // Первоначальное состояние движения - стоп
+        this.pause = true;     // флаг паузы
     }
 
     /**
@@ -71,8 +70,27 @@ export class Snake {
      */
     directionSnake(direction) {
         if (this.currentPosition === direction) { return; }  // если текущее направление совпадает с пришедшим
-        this.currentPosition = direction;                   // то просто на выход
-        this.head.direction = direction;                   // иначе сменить направление движения
+        if (direction === 'stop') {                         // то просто на выход, но если stop
+            if (this.pause) {                              // то пауза
+                this.head.direction = direction;          // иначе сменить направление движения
+            } else {
+                this.head.direction = this.currentPosition;
+            }
+            this.pause = !this.pause;
+        } else {
+            this.currentPosition = direction;                   
+            this.head.direction = direction;  
+        }
+                        
+    }
+
+    /**
+     * Создать блок тела и добавить его к змейке
+     * @param {number} appleX 
+     * @param {number} appleY 
+     */
+    addBlockToBody(appleX, appleY) {
+        this.body.push(new Body(appleX, appleY));
     }
 
 
