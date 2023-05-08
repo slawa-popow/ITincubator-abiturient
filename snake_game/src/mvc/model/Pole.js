@@ -10,7 +10,7 @@ export class Pole {
         this.height = height;
         this.matrixPole = [];
         this.snake = null;
-        this.speedSnake = 100;
+        this.speedSnake = 250;
         this.timer = null;
         
     }
@@ -42,7 +42,7 @@ export class Pole {
             let isvalid = this.isValidHeadPosition(); 
              if (this.snake.head.posY === this.height) {
                 this.snake.directionSnake('up');
-            } else if (this.snake.head.posY === 0) {
+            } else if (this.snake.head.posY <= 0) {
                 this.snake.directionSnake('down');
             } else if (this.snake.head.posX <= 0) {
                 this.snake.directionSnake('right');
@@ -61,14 +61,14 @@ export class Pole {
 
     isValidHeadPosition() {
         let [x, y]  = this.snake.head.getPos();
-        return (((x >= 0) && (x <= this.width)) && ((y > 0) && (y < this.height)));
+        return (((x >= 0) && (x <= this.width)) && ((y >= 0) && (y <= this.height)));
     }
 
 
     init() {
         this.createFields();
         if (this.snake == null) {
-            this.snake = new Snake([12, 8], 2);
+            this.snake = new Snake([12, 10], 5);
             this.snake.initSnake();
         }
         this.addSnake();
@@ -79,8 +79,9 @@ export class Pole {
      * Уведомить наблюдателей (view) об изменениях модели
      */
     notify() {
+        // debugger;
         let renderObj = {};
-        let snakePosits = this.snake.getPosition();
+        let snakePosits = [...this.snake.getPosition()];
         renderObj['head'] = snakePosits[0];
         renderObj['body'] = snakePosits[1];
         renderObj['tail'] = snakePosits[2];
@@ -88,7 +89,6 @@ export class Pole {
         for (let observer of this.observers) {
             observer.render(renderObj);
         }
-    
    }
 
     createFields() {
@@ -101,12 +101,10 @@ export class Pole {
                 iArr.push(field)
             }
             this.matrixPole.push([...iArr]);
-            // iArr.length = 0;
         }
     }
 
     addSnake() {
-        //debugger;
        let snakeArr = this.snake.getPosition();
        let headpos = snakeArr[0];
        this.matrixPole[headpos[0]][headpos[1]].init(this.snake.head);

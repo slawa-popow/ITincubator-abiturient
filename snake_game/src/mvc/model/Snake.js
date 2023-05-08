@@ -8,13 +8,11 @@ export class Snake {
     constructor(headPosition, quantityBodyBlock=1) {
         this.quantityBB = quantityBodyBlock;
         this.headPosition = headPosition; // array
-        
+        this.applesPos = [];
     }
 
     initSnake() {
-        this.applesPos = [];
         this.totalPoints = 0;  
-        this.dequeNodePath = [];
         this.head = new Head(...this.headPosition);
         this.currentPosition = 'down';
         this.body = this.#getCreateBody();  // array objects
@@ -32,7 +30,6 @@ export class Snake {
     }
 
     #getCreateBody() {
-        // debugger;
         let body = [];
         let [x, y] = this.headPosition;
         for (let i = 0; i < this.quantityBB; i++, y--) {
@@ -49,49 +46,21 @@ export class Snake {
     }
 
     directionSnake(direction) {
-        let sn = [this.head, ...this.body, this.tail];
         if (this.currentPosition === direction) { return; }
         this.currentPosition = direction;
-        sn.forEach(s => {
-                    s.direction = this.currentPosition;
-                });
-        // debugger;
-        let head = this.head.getPos();
-        let tail = this.tail.getPos();
-        if (this.currentPosition === 'down') {
-              this.upPos(head, tail);
-        } else if (this.currentPosition === 'up') {
-               this.dwnPos(head, tail);  
-            }
+        this.head.direction = direction;     
     }
 
-
-    upPos(head, tail) {
-        if (head[1] > tail[1]){
-            [this.head.posX, this.head.posY] = head;
-            [this.tail.posX, this.tail.posY] = tail; 
-        } else {
-            [this.head.posX, this.head.posY] = tail;
-            [this.tail.posX, this.tail.posY] = head; 
-        }
-    }
-
-    dwnPos(head, tail) {
-        if (head[1] < tail[1]){
-            [this.head.posX, this.head.posY] = head;
-            [this.tail.posX, this.tail.posY] = tail; 
-        } else {
-            [this.head.posX, this.head.posY] = tail;
-            [this.tail.posX, this.tail.posY] = head;  
-        } 
-    }
-
-
-    step() {
-        let sn = [this.head, ...this.body, this.tail];
-        sn.forEach(s => {
-            s.step();
-        }); 
+    step() {        
+        let lenBody = this.body.length-1;
+        let headCoord = this.head.getPos();
+        let endBodyCoord = this.body[lenBody].getPos();
+        if (this.currentPosition === 'stop') { return; }          // если стоим, то на выход
+        this.head.step();                                        // сначала шаг
+        this.body.unshift(this.body.pop());                     // перевернуть body 
+        [this.body[0].posX, this.body[0].posY] = headCoord;    // началу body назначить коорднинаты головы до шага
+        [this.tail.posX, this.tail.posY] = endBodyCoord;      // хвост - последний body
+       
     }
 
     

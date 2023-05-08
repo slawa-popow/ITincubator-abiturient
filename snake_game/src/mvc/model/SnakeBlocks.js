@@ -16,6 +16,8 @@ export class SnakeBlocks extends BaseGameBlock {
         };  
     }
 
+    
+
     getPos() {
         return [this.posX, this.posY];
     }
@@ -49,7 +51,7 @@ export class SnakeBlocks extends BaseGameBlock {
         if (!this.direction) {
             throw new Error('Не назначен метод this.direction');
         }
-        this.direction();
+        this.direction();  // вызов геттер-значения
     }
 }
 
