@@ -1,3 +1,7 @@
+/**
+ * Миксин. Методы вызываются для изменения координат
+ * головы змейки
+ */
 
 
 export const moveMixin = {
@@ -17,6 +21,6 @@ export const moveMixin = {
         this.positionX++;
     },
     stop() {
-        // pass
+        // Пустой. Ничего не делать.
     }
 };

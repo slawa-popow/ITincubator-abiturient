@@ -7,7 +7,7 @@ export class SnakeBlocks extends BaseGameBlock {
 
     constructor(positionX, positionY) {
         super(positionX, positionY);
-        this.moveState = {
+        this.moveState = {              // ассоциация направлений движения с методами
             'up': this.up,
             'down': this.down,
             'left': this.left,
@@ -51,7 +51,7 @@ export class SnakeBlocks extends BaseGameBlock {
         if (!this.direction) {
             throw new Error('Не назначен метод this.direction');
         }
-        this.direction();  // вызов геттер-значения
+        this.direction();  // вызов геттер-значения | getter().call() |
     }
 }
 

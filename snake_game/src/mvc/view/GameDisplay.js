@@ -2,35 +2,45 @@ import { svgDevice } from "./dev_display";
 import { getdiv } from "../../dom_ops/getdiv";
 import { drawSVG } from "../../dom_ops/addgridSVG";
 
-
+/**
+ * Отображение View.
+ * 
+ */
 export class GameDisplay {
 
     constructor(idSVGdisplay, arrClassStyles) {
-        this.idDisplay = idSVGdisplay;
-        this.classStyles = [...arrClassStyles];
-        this.blocksPole = {};
+        this.idDisplay = idSVGdisplay;              // id дисплея
+        this.classStyles = [...arrClassStyles];     // стили css для позиционирования дисплея
+        this.blocksPole = {};                       // ячейки svg (rect) {id-rect: svg rect}
     
-        this.valuesPole = null;
-        this.pole = null;
+        this.valuesPole = null;                     // все объекты svg-rect
+        this.pole = null;                           // модель
+        this.controller = null;                     // контроллер
         
-        this.handlers = [
+        this.handlers = [                           // массив ссылок на методы событий клавиш клавиатуры
             this.upButton,
             this.rightButton,
             this.downButton,
             this.leftButton,
             this.pauseButton
         ];
-        this.keyboard = [];
+        this.keyboard = [];                         // svg объекты кнопок на картинке
     }
 
+
+    /**
+     * Интерфейсный метод.
+     * Принимает посылку от модели для перерисовки
+     * @param {Object} gameObjects 
+     */
     render(gameObjects) {
-        this.clearPole();
-        let head = gameObjects.head.join('#');
+        this.clearPole();                           // очистить поле
+        let head = gameObjects.head.join('#');      // координаты объектов связанные # ('4#12') - id ячейки rect svg
         let bodyArr = gameObjects.body.map(v => {
             return v.join('#');
         });
         let tail = gameObjects.tail.join('#');
-       
+        // далее отрисовать змейку
         for (let sn of [...bodyArr, tail]) {
             this.blocksPole[sn].setAttribute('fill', 'rgba(64, 64, 64, 0.634)');
         }
@@ -38,21 +48,31 @@ export class GameDisplay {
         
     }
 
+
+    /**
+     * очистить поле. Изменить цвет всех ячеек на какой-нибудь один
+     */
     clearPole() {
         for (let cell of this.valuesPole) {
             cell.setAttribute('fill', 'rgb(238, 244, 211)');
         }
     }
 
-    initDisplay(container) {
-        this.container = container;
-        let div = getdiv(this.classStyles);
-        div.innerHTML = svgDevice;
-        this.container.appendChild(div);
+    /**
+     * Инициализировать отображение
+     * @param {HTMLObjectElement} container 
+     */
+    initDisplay(container, controller) {
+        this.controller = controller;                               // контроллер mvc
+        this.container = container;                                 // объект главного div контейнера
+        let div = getdiv(this.classStyles);                         // далее создать и отрисовать svg дисплей,
+        div.innerHTML = svgDevice;                                  // создать отладочный span, получить размеры поля,
+        this.container.appendChild(div);                            // 
         this.debugspan = document.getElementById('id-debug-string');
         [this.width, this.height] = this.getSizeDisplay();
-        this.drawGrid();
-        this.valuesPole = Object.values(this.blocksPole);
+        this.drawGrid();                                            // отрисовать сетку (создать много svg rect)
+        this.valuesPole = Object.values(this.blocksPole);           // получить отдельно ячейки (объекты svg rect)
+        // инициализировать клавиатуру на svg дисплее
         this.keyboard = this.initKeyboard("up-button", "right-button", "down-button", "left-button", "pause");
     }
 
@@ -88,29 +108,41 @@ export class GameDisplay {
         }
     }
 
+    // ------------------------ обработчики кнопок клавиатуры и svg кнопок ------------
+    // Все попытки изменения состояния модели только через контроллер!
     upButton(event) {
-        this.pole.changeDirectionSnake('up');
+        this.controller.setDirectionSnake('up');
     }
 
     rightButton(event) {
-        this.pole.changeDirectionSnake('right');
+        this.controller.setDirectionSnake('right');
     }
     downButton(event) {
-        this.pole.changeDirectionSnake('down');
+        this.controller.setDirectionSnake('down');
     }
     leftButton(event) {
-        this.pole.changeDirectionSnake('left');
+        this.controller.setDirectionSnake('left');
     }
     pauseButton(event) {
 
     }
+    // --------------------------------------------------------------------------------
 
+    /**
+     * Получить координаты прямоугольника svg - игрового поля,
+     * в который вставляются svg rect ячейки 
+     * @returns {Array}
+     */
     getSizeDisplay() {
-        this.display = document.getElementById(this.idDisplay);
+        this.display = document.getElementById(this.idDisplay);  // объект группы g svg поля игры
         let bb = this.display.getBBox();
         return [+bb.x + (+bb.width), +bb.y + (+bb.height)];
     }
 
+
+    /**
+     * Отрисовать сетку (ячейки svg rectangle)
+     */
     drawGrid() {
         const VERTICAL = 20;
         const HORISONTAL = 22;
@@ -120,7 +152,8 @@ export class GameDisplay {
 
         for (let i = HORISONTAL; i < this.width; i += HORISONTAL, idI++) {
             for (let j = VERTICAL; j < this.height; j += VERTICAL) {
-                let idrect = `${idI}#${idJ}`;
+                let idrect = `${idI}#${idJ}`;       // id ячейки - координатаX#координатаY 
+                // создать svg rect ячейку
                 let objRect = drawSVG.getSVGrect(
                     idrect,
                     i,
@@ -130,9 +163,9 @@ export class GameDisplay {
                     colorFill,
                     colorStroke
                     );
-                this.addActionEvn(objRect);
-                this.blocksPole[idrect] = objRect;
-                this.display.appendChild(objRect);
+                this.addActionEvn(objRect);         // обработчик по наведению и уводу указателя мыши на ячейке
+                this.blocksPole[idrect] = objRect;  
+                this.display.appendChild(objRect);  // добавить ячейку как дочерний элемент в group svg (иначе не покажется)
                 idJ++;
             }
             idJ = 0;

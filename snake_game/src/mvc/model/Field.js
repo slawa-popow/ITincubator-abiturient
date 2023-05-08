@@ -6,6 +6,10 @@ export class Field extends BasePoleBlock {
         super();
     }
 
+    /**
+     * Поместить в клетку поля объект блочного типа
+     * @param {AbstractBlock} obj 
+     */
     init(obj) {
         if (!(obj instanceof AbstractBlock)) {
             throw new Error("Это не наши!");
@@ -13,6 +17,10 @@ export class Field extends BasePoleBlock {
         this.type = obj;
     }
 
+
+    /**
+     * Очистить клетку поля
+     */
     destroy() {
         this.type = null;
     }

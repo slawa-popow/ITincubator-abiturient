@@ -3,23 +3,34 @@ import { Body } from "./Body";
 import { Tail } from "./Tail";
 
 
+/**
+ * Змейка
+ */
 export class Snake {
 
     constructor(headPosition, quantityBodyBlock=1) {
-        this.quantityBB = quantityBodyBlock;
-        this.headPosition = headPosition; // array
-        this.applesPos = [];
+        this.quantityBB = quantityBodyBlock;            // количество блоков тела
+        this.headPosition = headPosition;               // Array - координаты головы
+        this.applesPos = [];                            // координаты яблок
     }
 
+    /**
+     * Инициализация змеи.
+     */
     initSnake() {
-        this.totalPoints = 0;  
-        this.head = new Head(...this.headPosition);
-        this.currentPosition = 'down';
-        this.body = this.#getCreateBody();  // array objects
-        this.tail = this.#getCreateTail();  // object
-        this.directionSnake('stop'); 
+        this.totalPoints = 0;                           // количество набранных очков в игре
+        this.head = new Head(...this.headPosition);     // создать объект головы
+        this.currentPosition = 'down';                  // текущее направление
+        this.body = this.#getCreateBody();              // Array of objects - тело змеи
+        this.tail = this.#getCreateTail();              // Object хвост
+        this.directionSnake('stop');                    // Первоначальное состояние движения - стоп
     }
 
+    /**
+     * Отдает массив текущих координат (массивов)
+     * змейки
+     * @returns {Array}
+     */
     getPosition() {
         let posits = [this.head.getPos()]
                     .concat([this.body.map(v => {
@@ -29,6 +40,10 @@ export class Snake {
         return posits;
     }
 
+    /**
+     * Создать массив объектов тела змеи
+     * @returns {Array}
+     */
     #getCreateBody() {
         let body = [];
         let [x, y] = this.headPosition;
@@ -39,18 +54,32 @@ export class Snake {
         return body;
     }
 
+    /**
+     * Создать хвост
+     * @returns {Object}
+     */
     #getCreateTail() {
         let endBodyObj = this.body[this.body.length-1];
         let [endBodyX, endBodyY] = [endBodyObj.posX, endBodyObj.posY];
         return new Tail(endBodyX, endBodyY-1)
     }
 
+    /**
+     * Изменить направление движения головы
+     * @param {string} direction 
+     * @returns {undefined}
+     */
     directionSnake(direction) {
-        if (this.currentPosition === direction) { return; }
-        this.currentPosition = direction;
-        this.head.direction = direction;     
+        if (this.currentPosition === direction) { return; }  // если текущее направление совпадает с пришедшим
+        this.currentPosition = direction;                   // то просто на выход
+        this.head.direction = direction;                   // иначе сменить направление движения
     }
 
+
+    /**
+     * Шаг движения змейки
+     * @returns {undefined}
+     */
     step() {        
         let lenBody = this.body.length-1;
         let headCoord = this.head.getPos();

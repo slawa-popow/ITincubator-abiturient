@@ -13,10 +13,10 @@ export class PlayPage extends ContentPage {
     constructor(title) {
         super(title);     // Название заголовка страницы
         this.makeContent = delDecorator(this.makeContent);  // декорированный метод this.makeContent(event)
-        
-        this.displayView = new GameDisplay("gdisplay", ["style-svg-game-container"]);
-        this.pole = new Pole();
-        this.controller = new Controller(this.pole, this.displayView);
+
+        this.displayView = new GameDisplay("gdisplay", ["style-svg-game-container"]); // отображение
+        this.pole = new Pole();                                                       // модель
+        this.controller = new Controller(this.pole, this.displayView);                // контроллер
     }
 
 
@@ -28,7 +28,7 @@ export class PlayPage extends ContentPage {
         let titleObj = createTitleH1.call(this, this.title);
         this.container.appendChild(titleObj);
         this.container.appendChild(createSpan("id-debug-string"));
-        this.controller.init(this.container);
+        this.controller.init(this.container);                       // инициализация контроллера (см сюда)
     }
 
 

@@ -1,5 +1,8 @@
 
-
+/**
+ * Контроллер.
+ * Инициализация модели и отображения.
+ */
 export class Controller {
 
     constructor(model, view) {
@@ -11,7 +14,7 @@ export class Controller {
 
     init(container) {
         this.container = container;
-        this.view.initDisplay(this.container);
+        this.view.initDisplay(this.container, this);
         this.pole.init(...this.view.getSizeDisplay());
     }
 
@@ -21,6 +24,7 @@ export class Controller {
 
 
     destroy() {
-        this.view.destroy();
+        this.pole.destroy();
+        this.view.destroy()
     }
 }
