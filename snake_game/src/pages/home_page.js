@@ -29,7 +29,7 @@ export class HomePage extends ContentPage {
         ));
         this.container.appendChild(createUL(
             [
-                "ES6 ООП",
+                "ES6 ООП (MVC)",
                 "Node.js 18x",
                 "webpack",
                 "SVG графика"

@@ -1,7 +1,7 @@
 import { svgDevice } from "./dev_display"; 
 import { getdiv } from "../../dom_ops/getdiv";
 import { drawSVG } from "../../dom_ops/addgridSVG";
-
+import { segMethods } from "./segment_methods";
 /**
  * Отображение View.
  * 
@@ -48,7 +48,9 @@ export class GameDisplay {
         this.blocksPole[head].setAttribute('fill', 'rgba(45, 130, 220, 0.637)');  // svg z-index - последний отрисовался - над всеми показался
         let apple = gameObjects['apple'].join('#');
         this.blocksPole[apple].setAttribute('fill', 'rgba(11, 101, 1, 0.448)');  // цвет яблока
-        this.viewTotalPoints(gameObjects['total']);
+        this.viewTotalPoints(gameObjects['total']);  // очки
+        segMethods.clearAll(segMethods.getDigitMap());
+        segMethods.printStr(gameObjects['total']);
     }
 
 
@@ -217,9 +219,6 @@ export class GameDisplay {
         }
         
     }
-
-
-    selectBlockOnPole(evn) {}
 
 
     destroy() {

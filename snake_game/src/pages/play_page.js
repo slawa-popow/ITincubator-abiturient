@@ -4,6 +4,8 @@ import { GameDisplay } from "../mvc/view/GameDisplay";
 import { Pole } from "../mvc/model/Pole";
 import { Controller } from "../mvc/controller/Conrtoller";
 import { createSpan } from "../dom_ops/createSpan";
+import { getdiv } from "../dom_ops/getdiv";
+import { segIndicator } from "../mvc/view/dev_segment";
 
 /**
  * Страница с игрой
@@ -25,10 +27,15 @@ export class PlayPage extends ContentPage {
      * @param {Event} event 
      */
     makeContent(event) {
+        const idIndicator = 'total-point'
         let titleObj = createTitleH1.call(this, this.title);
         this.container.appendChild(titleObj);
+        
+        let indicator = getdiv(['segment-indicator'], idIndicator);
         this.container.appendChild(createSpan("id-debug-string"));
-        this.controller.init(this.container);                       // инициализация контроллера (см сюда)
+        indicator.innerHTML = segIndicator;
+        this.container.appendChild(indicator);
+        this.controller.init(this.container);             // инициализация контроллера (см. сюда)
     }
 
 
