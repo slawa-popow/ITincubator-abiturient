@@ -110,7 +110,7 @@ export const segMethods = (function(){
         let segment = Object.values(map);
         for (let i of segment) {
             for (let obj of i) {
-                obj.setAttribute('fill', offColor);
+                obj.setAttribute('style', `${offColor}`);
             }
         }
     }

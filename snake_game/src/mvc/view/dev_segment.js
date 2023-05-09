@@ -6,7 +6,7 @@
 export const segIndicator = String.raw`<svg  viewBox="0 0 64 30" id="digit-segments" xmlns="http://www.w3.org/2000/svg">
 <defs></defs>
     <g style="" transform="matrix(0.711447, 0, 0, 1, 0, 0)">
-        <rect style="paint-order: stroke; vector-effect: non-scaling-stroke; stroke: rgb(74, 74, 74); fill: rgb(66, 66, 66);" x="0" y="0" width="90" height="30" rx="2.4" ry="2.4"></rect>
+        <rect style="paint-order: stroke; vector-effect: non-scaling-stroke; stroke: rgb(74, 74, 74); fill: rgba(35, 35, 35, 0.85);" x="0" y="0" width="90" height="30" rx="4" ry="4"></rect>
         <g id="sym-digit-row" transform="matrix(0.323077, 0, 0, 0.237428, -6.692307, -10.770823)">
         <g id="sym-segment-0" transform="matrix(0.964285, 0, 0, 1.134726, 267.214111, -60.011513)" style="">
             <polygon style="vector-effect: non-scaling-stroke; paint-order: stroke; stroke: rgb(84, 84, 84); fill: rgb(67, 67, 67);" points="-244 104 -192 104.127 -200.689 110.127 -235.334 110.127" id="sym-seg-0-2"></polygon>

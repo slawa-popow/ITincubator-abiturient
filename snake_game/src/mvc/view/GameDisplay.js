@@ -50,7 +50,7 @@ export class GameDisplay {
         this.blocksPole[apple].setAttribute('fill', 'rgba(11, 101, 1, 0.448)');  // цвет яблока
         this.viewTotalPoints(gameObjects['total']);  // очки
         segMethods.clearAll(segMethods.getDigitMap());
-        segMethods.printStr(gameObjects['total']);
+        segMethods.printStr(('' + gameObjects['total']).padStart(4,'0'));
     }
 
 
