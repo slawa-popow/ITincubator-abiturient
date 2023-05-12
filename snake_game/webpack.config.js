@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack'); // для подключения jquery 
 
 module.exports = {
   entry: __dirname + '/src/snake.js',
@@ -7,6 +8,13 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
+
+  plugins: [
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+    })
+  ],
 
   // mode: 'production',
   mode: 'development',
@@ -29,4 +37,7 @@ module.exports = {
     ]
   },
 
+
 };
+
+

@@ -1,6 +1,6 @@
 
 import { Navigator } from "./navigator";
-
+ 
 /**
  * Точка входа.
  */
@@ -10,10 +10,9 @@ import { Navigator } from "./navigator";
 const navigation = new Navigator("content");
 navigation.init();
 
-
+// jQuery:
+//
+// let jq = $('.author');    
+// console.log(jq);
 // -----------------------------------------------------------------------------
-
-// const snake = new Snake([3, 3], 2);
-// snake.initSnake();
-// console.log(snake);
 
