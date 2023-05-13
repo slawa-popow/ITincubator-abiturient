@@ -51,7 +51,7 @@ $("input[type='button']").click(() => {
     let [text, rest] = (resp) ? resp : ['', 0];
      
     $('#rest').text(`Осталось: ${rest}`);
-    $('#content').append(`<p>${text}</p>`);
+    $('#content').append(`<p>${text}</p>`); 
 });
 
 // while (stop) {
