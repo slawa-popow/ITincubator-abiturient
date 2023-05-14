@@ -80,12 +80,15 @@ export const segMethods = (function(){
         let counter = 0;
         
         for (let seg of code) {
-            if (seg === 1) {
+            if (segment[counter]) {
+                if (seg === 1) {
                 segment[counter].setAttribute('style', `${onColor}`);
             } else {
                 segment[counter].setAttribute('style', `${offColor}`);
             }
-            counter++;
+            counter++; 
+            }
+           
         }
     }
 
@@ -110,7 +113,10 @@ export const segMethods = (function(){
         let segment = Object.values(map);
         for (let i of segment) {
             for (let obj of i) {
-                obj.setAttribute('style', `${offColor}`);
+                if(obj) {
+                  obj.setAttribute('style', `${offColor}`);  
+                }
+                
             }
         }
     }
