@@ -59,3 +59,17 @@ const bucket: (number | boolean)[] = [2, true, 54];
 for (let i = 0 ; i < bucket.length; i+=1) {
     arr.push(bucket[i]);
 }
+
+// --------------------------------------------------------------------
+
+const drink = {
+    color: 'black',
+    carbonare: true,
+    alcoholProcents: 5
+}
+
+type Drink = [string, boolean, number];
+type Some = number;
+
+let beer: Drink = ['orange', false, 6];
+let cola: Drink = ['black', true, 0];
