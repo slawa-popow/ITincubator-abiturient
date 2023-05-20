@@ -11,6 +11,6 @@ export class User {
     };
 
     constructor() {
-        // this.name = faker.address.city();  
+        this.name = faker.address.city();  
     }
 }
