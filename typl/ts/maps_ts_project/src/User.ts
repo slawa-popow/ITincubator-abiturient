@@ -11,6 +11,14 @@ export class User {
     };
 
     constructor() {
-        this.name = faker.address.city();  
+        this.name = faker.address.city(); 
+        this.location = {
+            lat: parseFloat(faker.address.latitude()),
+            lng: parseFloat(faker.address.longitude())
+        } 
+    }
+
+    get coords(): number[] {
+        return [this.location.lat, this.location.lng];
     }
 }
