@@ -7,7 +7,7 @@ import { CustomMap } from "./CustomMap";
 const rootMap = document.getElementById('Mmap') as HTMLElement;
 const customMap = new CustomMap(rootMap);
 
-
-customMap.addUserMarker(new User());   
+customMap.addMarker(new Company());
+customMap.addMarker(new User());   
 
 

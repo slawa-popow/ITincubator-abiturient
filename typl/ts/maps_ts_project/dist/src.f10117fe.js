@@ -136875,6 +136875,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -136893,21 +136894,79 @@ var faker_1 = __importDefault(require("faker"));
 var User = /*#__PURE__*/function () {
   function User() {
     _classCallCheck(this, User);
+    _defineProperty(this, "name", void 0);
+    _defineProperty(this, "location", void 0);
+    _defineProperty(this, "colorLabel", void 0);
     this.name = faker_1.default.address.city();
     this.location = {
       lat: parseFloat(faker_1.default.address.latitude()),
       lng: parseFloat(faker_1.default.address.longitude())
     };
+    this.colorLabel = '#11a030';
   }
   _createClass(User, [{
     key: "coords",
     get: function get() {
       return [this.location.lat, this.location.lng];
     }
+  }, {
+    key: "clickHandler",
+    value: function clickHandler(e) {
+      console.log('User id: ', this.id);
+    }
   }]);
   return User;
 }();
 exports.User = User;
+},{"faker":"node_modules/faker/index.js"}],"src/Company.ts":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Company = void 0;
+var faker_1 = __importDefault(require("faker"));
+var Company = /*#__PURE__*/function () {
+  function Company() {
+    _classCallCheck(this, Company);
+    _defineProperty(this, "companyName", void 0);
+    _defineProperty(this, "catchPhrase", void 0);
+    _defineProperty(this, "location", void 0);
+    _defineProperty(this, "colorLabel", void 0);
+    this.companyName = faker_1.default.company.companyName();
+    this.catchPhrase = faker_1.default.company.catchPhrase();
+    this.location = {
+      lat: parseFloat(faker_1.default.address.latitude()),
+      lng: parseFloat(faker_1.default.address.longitude())
+    };
+    this.colorLabel = 'red';
+  }
+  _createClass(Company, [{
+    key: "coords",
+    get: function get() {
+      return Object.values(this.location);
+    }
+  }, {
+    key: "clickHandler",
+    value: function clickHandler(e) {
+      console.log('Company id: ', this.id);
+    }
+  }]);
+  return Company;
+}();
+exports.Company = Company;
 },{"faker":"node_modules/faker/index.js"}],"src/CustomMap.ts":[function(require,module,exports) {
 "use strict";
 
@@ -136921,6 +136980,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 Object.defineProperty(exports, "__esModule", {
@@ -136931,11 +136991,12 @@ var CustomMap = /*#__PURE__*/function () {
   function CustomMap(rootHTMLcontainer) {
     var _this = this;
     _classCallCheck(this, CustomMap);
+    _defineProperty(this, "rootHTMLcontainer", void 0);
+    _defineProperty(this, "yandexMap", null);
+    _defineProperty(this, "layer", null);
     this.rootHTMLcontainer = rootHTMLcontainer;
-    this.yandexMap = null;
-    this.layer = null;
-    this.markerLayer = null;
     ymaps3.ready.then(function () {
+      var _this$yandexMap;
       _this.yandexMap = new ymaps3.YMap(_this.rootHTMLcontainer, {
         location: {
           zoom: 1,
@@ -136944,42 +137005,45 @@ var CustomMap = /*#__PURE__*/function () {
       });
       _this.layer = new ymaps3.YMapDefaultSchemeLayer({}); // слой обязательно
       _this.yandexMap.addChild(_this.layer);
+      (_this$yandexMap = _this.yandexMap) === null || _this$yandexMap === void 0 ? void 0 : _this$yandexMap.addChild(new ymaps3.YMapDefaultFeaturesLayer({}));
     });
   }
   _createClass(CustomMap, [{
-    key: "addUserMarker",
-    value: function addUserMarker(user) {
-      this.addNewMarkerLayer({
-        name: user.name,
-        location: user.coords
-      });
+    key: "addMarker",
+    value: function addMarker(mappable) {
+      this.addNewMarkerLayer(mappable);
     }
   }, {
-    key: "addCompanyMarker",
-    value: function addCompanyMarker(company) {}
-  }, {
     key: "addNewMarkerLayer",
-    value: function addNewMarkerLayer(obj) {
+    value: function addNewMarkerLayer(mappable) {
       var _this2 = this;
       // так импорт типов из пакетов => промис
       ymaps3.import('@yandex/ymaps3-markers@0.0.1').then(function (_ref) {
+        var _this2$yandexMap;
         var YMapDefaultMarker = _ref.YMapDefaultMarker;
-        var _a, _b, _c;
-        _this2.markerLayer = new ymaps3.YMapDefaultFeaturesLayer({});
-        (_a = _this2.yandexMap) === null || _a === void 0 ? void 0 : _a.addChild(_this2.markerLayer);
-        var _obj$location = _slicedToArray(obj.location, 2),
-          lat = _obj$location[0],
-          lng = _obj$location[1];
-        (_b = _this2.yandexMap) === null || _b === void 0 ? void 0 : _b.setLocation({
-          zoom: 2,
-          center: [lng, lat]
-        });
+        var _mappable$coords = _slicedToArray(mappable.coords, 2),
+          lat = _mappable$coords[0],
+          lng = _mappable$coords[1];
         var marker = new YMapDefaultMarker({
-          title: obj.name,
-          coordinates: [lat, lng]
+          id: _this2.getID("id-".concat((mappable === null || mappable === void 0 ? void 0 : mappable.name) || (mappable === null || mappable === void 0 ? void 0 : mappable.companyName))),
+          title: mappable.name,
+          coordinates: [lat, lng],
+          color: mappable.colorLabel,
+          subtitle: mappable.companyName ? "company: ".concat(mappable.companyName) : '',
+          draggable: true,
+          mapFollowsOnDrag: true,
+          onClick: mappable.clickHandler // this это marker
         });
-        (_c = _this2.yandexMap) === null || _c === void 0 ? void 0 : _c.addChild(marker);
+
+        (_this2$yandexMap = _this2.yandexMap) === null || _this2$yandexMap === void 0 ? void 0 : _this2$yandexMap.addChild(marker);
       });
+    }
+  }, {
+    key: "getID",
+    value: function getID(str) {
+      return str.split(' ').map(function (v) {
+        return v[0].toUpperCase() + v.slice(1);
+      }).join('-');
     }
   }]);
   return CustomMap;
@@ -136992,11 +137056,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var User_1 = require("./User");
+var Company_1 = require("./Company");
 var CustomMap_1 = require("./CustomMap");
 var rootMap = document.getElementById('Mmap');
 var customMap = new CustomMap_1.CustomMap(rootMap);
-customMap.addUserMarker(new User_1.User());
-},{"./User":"src/User.ts","./CustomMap":"src/CustomMap.ts"}],"C:/Users/slava/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+customMap.addMarker(new Company_1.Company());
+customMap.addMarker(new User_1.User());
+},{"./User":"src/User.ts","./Company":"src/Company.ts","./CustomMap":"src/CustomMap.ts"}],"C:/Users/slava/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -137021,7 +137087,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62069" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63411" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

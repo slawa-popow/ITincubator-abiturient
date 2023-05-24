@@ -3,16 +3,20 @@ import { YMap,
   YMapDefaultSchemeLayer,
   YMapDefaultFeaturesLayer } from "@yandex/ymaps3-types";
 
-import { User } from "./User";
-import { Company } from "./Company";
 
+interface Mappable {
+  location: number[];
+  colorLabel: string;
+  name: string;
+  companyName: string;
+  coords: number[];
+  clickHandler: (e: Event) => void;
+}
 
 export class CustomMap {
     private yandexMap: YMap | null = null;
     private layer: YMapDefaultSchemeLayer | null = null;
-    private markerLayer: YMapDefaultFeaturesLayer | null = null;
     
-
     constructor(private rootHTMLcontainer: HTMLElement) {
         ymaps3.ready.then(() => {
             this.yandexMap = new ymaps3.YMap(this.rootHTMLcontainer, {
@@ -23,34 +27,37 @@ export class CustomMap {
               });
               this.layer = new ymaps3.YMapDefaultSchemeLayer({}); // слой обязательно
               this.yandexMap.addChild(this.layer);
-              
+              this.yandexMap?.addChild(new ymaps3.YMapDefaultFeaturesLayer({}));
             });
     }
 
-    public addUserMarker(user: User): void {
-      this.addNewMarkerLayer({name: user.name, location: user.coords});
+    public addMarker(mappable: Mappable): void {
+      this.addNewMarkerLayer(mappable);
     }
 
-    public addCompanyMarker(company: Company): void {
-
-    }
-
-    private addNewMarkerLayer( obj: {name: string; location: number[]}): void{
+    private addNewMarkerLayer( mappable: Mappable): void {
       // так импорт типов из пакетов => промис
       ymaps3.import('@yandex/ymaps3-markers@0.0.1').then(({YMapDefaultMarker}) => {
-          this.markerLayer = new ymaps3.YMapDefaultFeaturesLayer({});
-          this.yandexMap?.addChild(this.markerLayer);
-          const [lat, lng] = obj.location;
-          this.yandexMap?.setLocation({zoom: 2, center: [lng, lat]});
-          const marker = new YMapDefaultMarker({
-            title: obj.name,
-            coordinates: [lat, lng]
-          });
-          this.yandexMap?.addChild(marker); 
+        const [lat, lng] = mappable.coords;
+        const marker = new YMapDefaultMarker({
+          id: this.getID(`id-${mappable?.name || mappable?.companyName}`),
+          title: mappable.name,
+          coordinates: [lat, lng],
+          color: mappable.colorLabel,
+          subtitle: (mappable.companyName) ? `company: ${mappable.companyName}` : '',
+          draggable: true,
+          mapFollowsOnDrag: true,
+          onClick: mappable.clickHandler  // this это marker
+        });
+        this.yandexMap?.addChild(marker); 
       }); 
-          
-       
     } 
+
+    private getID(str: string): string {
+      return str.split(' ').map(v => {
+        return v[0].toUpperCase() + v.slice(1);
+      }).join('-');
+    }
 
 
 }

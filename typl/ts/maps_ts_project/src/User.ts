@@ -9,16 +9,22 @@ export class User {
         lat: number;
         lng: number;
     };
+    colorLabel: string;
 
     constructor() {
         this.name = faker.address.city(); 
         this.location = {
             lat: parseFloat(faker.address.latitude()),
             lng: parseFloat(faker.address.longitude())
-        } 
+        }
+        this.colorLabel = '#11a030'; 
     }
 
     get coords(): number[] {
         return [this.location.lat, this.location.lng];
     }
+
+    public clickHandler(e: Event): void {
+        console.log('User id: ', this.id);
+    } 
 }
