@@ -2,16 +2,9 @@
 import { YMap,
   YMapDefaultSchemeLayer,
   YMapDefaultFeaturesLayer } from "@yandex/ymaps3-types";
+import { Mappable } from "./Mappable";
 
 
-interface Mappable {
-  location: number[];
-  colorLabel: string;
-  name: string;
-  companyName: string;
-  coords: number[];
-  clickHandler: (e: Event) => void;
-}
 
 export class CustomMap {
     private yandexMap: YMap | null = null;
