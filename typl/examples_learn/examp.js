@@ -48,7 +48,7 @@ let stop = 1;
 $("input[type='button']").click(() => {
     print(g);
     let resp = g.next().value
-    let [text, rest] = (resp) ? resp : ['', 0];
+    let [text, rest] = (resp) ? resp : ['', 0]; 
      
     $('#rest').text(`Осталось: ${rest}`);
     $('#content').append(`<p>${text}</p>`);  
