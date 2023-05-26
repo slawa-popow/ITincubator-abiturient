@@ -39,7 +39,7 @@ function *gen(text, volume) {
         let sliceArr = ((count + volume) >= lenArray) ? arr.slice(count) : arr.slice(count, count + volume);
         yield [sliceArr, arr.length - count];
         count += volume;
-    }
+    } 
     return null;
 } 
 
