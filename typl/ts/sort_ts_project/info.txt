@@ -1,0 +1,11 @@
+1. nodemon - запуск файла js
+2. concurrently - запуск нескольких сценариев
+3.  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "npx nodemon build/index.js",
+    "start": "concurrently npm:start:*"
+  }, - означает: зайти в папку проекта, ввести в консоли npm start,
+                 после этого concurrently запустит все правила в "scripts"
+                 следующим образом: запуск npm и запуск значений в командной строке, ключи которых 
+                 начинаются на "start:" после чего идут любые символы. (т-е npm "start:build" "start:run")
+4. т-к nodemon был загружен обычным образом, его нет в глобале. Поэтому запуск через npx
