@@ -1,5 +1,6 @@
+import { ISortable } from "./ISortable";
 
-export class NumbersCollection {
+export class NumbersCollection implements ISortable{
     constructor(public data: number[]) {}
 
     /**
@@ -27,6 +28,6 @@ export class NumbersCollection {
      * @param rightIndex 
      */
     swap(leftIndex: number, rightIndex: number): void {
-        [this.data[leftIndex], this.data[rightIndex]] = [this.data[rightIndex], this.data[leftIndex]];
+        [this.data[leftIndex], this.data[rightIndex]] = [this.data[rightIndex], this.data[leftIndex]]; 
     }
 }

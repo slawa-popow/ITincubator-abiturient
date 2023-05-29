@@ -1,8 +1,8 @@
 
-import { NumbersCollection } from "./NumbersCollection";
+import { ISortable } from "./ISortable";
 
 export class Sorter {
-    constructor(public collection: NumbersCollection) {} 
+    constructor(public collection: ISortable) {} 
 
     /**
      * Cортировка пузырьком
