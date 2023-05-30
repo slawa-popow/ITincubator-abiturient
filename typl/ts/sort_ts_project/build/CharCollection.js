@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharCollection = void 0;
-class CharCollection {
+const Sorter_1 = require("./Sorter");
+class CharCollection extends Sorter_1.Sorter {
     constructor(data) {
+        super();
         this.data = data;
     }
     get length() {
@@ -18,3 +20,4 @@ class CharCollection {
     }
 }
 exports.CharCollection = CharCollection;
+//# sourceMappingURL=CharCollection.js.map

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LinkedList = void 0;
+const Sorter_1 = require("./Sorter");
 class Node {
     constructor(data) {
         this.data = data;
@@ -8,8 +9,9 @@ class Node {
         this.position = 0;
     }
 }
-class LinkedList {
+class LinkedList extends Sorter_1.Sorter {
     constructor() {
+        super();
         this.head = null;
     }
     add(data) {
@@ -27,23 +29,11 @@ class LinkedList {
         return (end) ? end.position + 1 : 0;
     }
     swap(lIndx, rIndx) {
-        let lnode = this.at(lIndx);
-        let rnode = this.at(rIndx);
-        let lnext = lnode.next;
-        let rnext = rnode.next;
-        lnode = rnode;
-        lnode.next = lnext;
-        rnode.next = rnext;
-        if (lnode.position === 0) {
-            let prevRnode = this.at(rIndx - 1);
-            prevRnode.next = rnode;
-        }
-        else {
-            let prevLnode = this.at(lIndx - 1);
-            let prevRnode = this.at(rIndx - 1);
-            prevRnode.next = rnode;
-            prevLnode.next = lnode;
-        }
+        const leftNode = this.at(lIndx);
+        const rightNode = this.at(rIndx);
+        const leftHand = leftNode.data;
+        leftNode.data = rightNode.data;
+        rightNode.data = leftHand;
     }
     compare(lIndx, rIndx) {
         if (!this.head) {
@@ -86,3 +76,4 @@ class LinkedList {
     }
 }
 exports.LinkedList = LinkedList;
+//# sourceMappingURL=LinkedList.js.map

@@ -1,7 +1,10 @@
-import { ISortable } from "./ISortable";
 
-export class NumbersCollection implements ISortable{
-    constructor(public data: number[]) {}
+import { Sorter } from "./Sorter";
+
+export class NumbersCollection extends Sorter { // implements ISortable{
+    constructor(public data: number[]) {
+        super();
+    }
 
     /**
      * Длинна массива

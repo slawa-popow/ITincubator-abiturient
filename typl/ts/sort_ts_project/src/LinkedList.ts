@@ -1,4 +1,5 @@
-import { ISortable } from "./ISortable";
+
+import { Sorter } from "./Sorter";
 
 
 class Node {
@@ -8,8 +9,12 @@ class Node {
 }
 
 
-export class LinkedList implements ISortable {
+export class LinkedList extends Sorter { //implements ISortable {
     public head: Node | null = null;
+
+    constructor() {
+        super();
+    }
 
     add(data: number): void {
         const node = new Node(data);
@@ -27,25 +32,11 @@ export class LinkedList implements ISortable {
     }
 
     swap(lIndx: number, rIndx: number): void {
-        let lnode = this.at(lIndx);
-        let rnode = this.at(rIndx);
-        let lnext = lnode.next;
-        let rnext = rnode.next;
-        lnode = rnode;
-        lnode.next = lnext;
-        rnode.next = rnext;
-        if (lnode.position === 0) {    
-            let prevRnode = this.at(rIndx-1);   
-            prevRnode.next = rnode;
-        
-
-        } else {
-            let prevLnode = this.at(lIndx-1);
-            let prevRnode = this.at(rIndx-1);
-            prevRnode.next = rnode;
-            prevLnode.next = lnode;
-        }
-        
+        const leftNode = this.at(lIndx);
+        const rightNode = this.at(rIndx);
+        const leftHand = leftNode.data;
+        leftNode.data = rightNode.data;
+        rightNode.data = leftHand
     }
 
     compare(lIndx: number, rIndx: number): boolean {

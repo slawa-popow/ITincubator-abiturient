@@ -8,22 +8,16 @@ const numCollections = new NumbersCollection([1, 5, 8, 0, -3, 12]);
 const strCollections = new CharCollection('AdfgRGFgdoweijkg');
 const linkedCollections = new LinkedList();
 
-linkedCollections.add(5);
+linkedCollections.add(59);
 linkedCollections.add(-4);
 linkedCollections.add(0);
-linkedCollections.add(21);
+linkedCollections.add(-21);
 
-linkedCollections.print();
+numCollections.sort();
+strCollections.sort();
+linkedCollections.sort();
+ 
 
-const sorterNums = new Sorter(numCollections);
-const sorterStr = new Sorter(strCollections);
-// const sorterLinkedList = new Sorter(linkedCollections);
-
-sorterNums.sort();
-sorterStr.sort();
-
-// sorterLinkedList.sort();
-
-console.log(numCollections.data, '\n', strCollections.data, '\n', );
-linkedCollections.swap(0, 1);
+console.log(numCollections.data);
+console.log(strCollections.data);
 linkedCollections.print();
