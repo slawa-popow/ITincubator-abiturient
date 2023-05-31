@@ -1,0 +1,22 @@
+const encodeHTMLSym = (function() {
+    const asoc = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '\"': '&quot;',
+        "\'": '&apos;',
+    }
+
+    return { asoc };
+})();
+
+
+function convertHTML(str) {
+    let resultStr = '';
+    [...str].forEach(v => {
+        resultStr += (v in encodeHTMLSym.asoc) ? encodeHTMLSym.asoc[v] : v; 
+    });
+    return resultStr;
+  }
+
+convertHTML("Dolce & Gabbana");
