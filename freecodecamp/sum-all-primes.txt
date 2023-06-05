@@ -1,0 +1,21 @@
+function sumPrimes(num) {
+    let n = num;
+    let sum = 0;
+    let bucket = 0;
+    while (n > 1) {
+        for (let i = 1; i < n; i += 1) {
+            if (n % i === 0) {
+                bucket++;
+            }
+        }
+        
+        if (bucket < 2) {
+            sum += n;
+        }
+        bucket = 0;
+        n -= 1;
+    }
+    return sum;
+}
+
+sumPrimes(10);
