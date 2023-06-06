@@ -1,0 +1,13 @@
+function steamrollArray(arr) {
+    let resArr = [];
+    for(var i = 0; i < arr.length; i += 1) {
+        if(Array.isArray(arr[i])) {
+            resArr = resArr.concat(steamrollArray(arr[i]));
+        } else {
+            resArr.push(arr[i]);
+        }
+    }
+    return resArr;
+}
+
+steamrollArray([1, [2], [3, [[4]]]]);
