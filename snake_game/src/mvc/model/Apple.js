@@ -10,4 +10,4 @@ export class Apple extends BaseGameBlock{
         super(positionX, positionY);
     }
 
-}
+} 

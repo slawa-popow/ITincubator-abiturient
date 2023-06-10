@@ -5,4 +5,4 @@ export class BasePoleBlock extends AbstractBlock {
     constructor() {
         super();
     }
-}
+} 

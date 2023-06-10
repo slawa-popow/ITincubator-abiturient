@@ -10,7 +10,7 @@ import { Apple } from "./Apple";
  * то подогнал размер матрицы под размер
  * svg дисплея, а не наоборот.
  */
-export class Pole {
+export class Pole { 
 
     constructor(width=22, height=25) {  
         this.observers = [];    // наблюдатели (view)     

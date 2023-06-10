@@ -1,7 +1,7 @@
 
 /**
  * Про семисегментный индикатор
- */
+ */ 
 
 export const segMethods = (function(){
     const digits = 4;

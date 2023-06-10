@@ -15,7 +15,7 @@ export class Field extends BasePoleBlock {
             throw new Error("Это не наши!");
         } 
         this.type = obj;
-    }
+    } 
 
 
     /**

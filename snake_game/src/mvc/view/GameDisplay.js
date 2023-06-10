@@ -5,7 +5,7 @@ import { segMethods } from "./segment_methods";
 /**
  * Отображение View.
  * 
- */
+ */ 
 export class GameDisplay {
 
     constructor(idSVGdisplay, arrClassStyles) {

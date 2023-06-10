@@ -14,7 +14,7 @@ module.exports = {
         $: "jquery",
         jQuery: "jquery",
     })
-  ],
+  ], 
 
   // mode: 'production',
   mode: 'development',

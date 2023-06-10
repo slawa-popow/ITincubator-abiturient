@@ -10,7 +10,7 @@ export class AbstractBlock {
         this.positionX = null;
         this.positionY = null;
         this.type = null;
-    }
+    } 
 
 
     init() {

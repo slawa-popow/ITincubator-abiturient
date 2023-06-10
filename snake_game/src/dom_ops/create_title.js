@@ -8,7 +8,7 @@ export { createTitleH1 }
 
 
 
-/**
+/** 
  * Создать div, добавить в него h1, вернуть объект div
  * @param {string} strTitle - название заголовка страницы
  * @returns {object}

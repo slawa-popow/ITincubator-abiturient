@@ -4,4 +4,4 @@ export function createSpan(id="") {
     span.setAttribute('id', id);
 
     return span;
-}
+} 

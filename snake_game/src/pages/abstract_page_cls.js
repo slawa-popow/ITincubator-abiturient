@@ -3,7 +3,7 @@
  * @abstract
  * Абстрактный класс динамически генерируемых страниц.
  * 
- */
+ */ 
 export class ABCContentPage {
     constructor() {
         if (new.target === ABCContentPage) {

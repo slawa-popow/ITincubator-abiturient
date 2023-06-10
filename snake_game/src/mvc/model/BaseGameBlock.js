@@ -12,4 +12,4 @@ export class BaseGameBlock extends AbstractBlock {
     getPos() {
         return [this.positionX, this.positionY];
     }
-}
+} 

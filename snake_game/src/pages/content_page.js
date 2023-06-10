@@ -2,7 +2,7 @@ import { ABCContentPage } from "./abstract_page_cls";
 
 /**
  * Базовый класс динамически генерируемых страниц
- */
+ */ 
 export class ContentPage extends ABCContentPage {
 
     /**

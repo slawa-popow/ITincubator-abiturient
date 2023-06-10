@@ -5,4 +5,4 @@ export function getdiv(classes=null, id="") {
     div.classList.add(...locClasses);
 
     return div;
-}
+} 

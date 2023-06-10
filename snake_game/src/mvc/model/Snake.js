@@ -11,7 +11,7 @@ export class Snake {
     constructor(headPosition, quantityBodyBlock=1) {
         this.quantityBB = quantityBodyBlock;            // количество блоков тела
         this.headPosition = headPosition;               // Array - координаты головы
-    }
+    } 
 
     /**
      * Инициализация змеи.

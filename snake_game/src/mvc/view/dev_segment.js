@@ -1,7 +1,7 @@
 
 /**
  * SVG 7 сегментный индикатор
- */
+ */ 
 
 export const segIndicator = String.raw`<svg  viewBox="0 0 64 30" id="digit-segments" xmlns="http://www.w3.org/2000/svg">
 <defs></defs>

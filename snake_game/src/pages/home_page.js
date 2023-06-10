@@ -5,7 +5,7 @@ import { createUL } from "../dom_ops/createUL";
 
 /**
  * Главная страница
- */
+ */ 
 export class HomePage extends ContentPage {
 
     constructor(title) {

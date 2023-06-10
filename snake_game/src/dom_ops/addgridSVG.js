@@ -9,7 +9,7 @@ export const drawSVG = {
         newLine.setAttributeNS(null, "stroke", strokeColor);
         newLine.setAttributeNS(null, "stroke-width", 1.5);
         return newLine;
-    },
+    }, 
 
     getSVGrect(id, x, y, width, height, fillColor, strokeColor) {
         let newRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');

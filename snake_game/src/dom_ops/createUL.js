@@ -7,4 +7,4 @@ export function createUL(liArr, type='ul') {
     });
 
     return uol;
-}
+} 

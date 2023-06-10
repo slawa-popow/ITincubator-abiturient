@@ -8,4 +8,4 @@ export class Body extends SnakeBlocks {
     constructor(positionX, positionY) {
         super(positionX, positionY);
     }
-}
+} 

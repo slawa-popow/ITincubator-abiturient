@@ -9,7 +9,7 @@ import { segIndicator } from "../mvc/view/dev_segment";
 
 /**
  * Страница с игрой
- */
+ */ 
 export class PlayPage extends ContentPage {
 
     constructor(title) {

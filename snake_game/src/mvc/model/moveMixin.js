@@ -15,7 +15,7 @@ export const moveMixin = {
 
     left() {
         this.positionX--;
-    },
+    }, 
 
     right() {
         this.positionX++;

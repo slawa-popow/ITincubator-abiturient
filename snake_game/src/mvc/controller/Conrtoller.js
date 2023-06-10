@@ -10,7 +10,7 @@ export class Controller {
         this.view = view;
         this.pole.addObserver(this.view);
         this.view.pole = this.pole;
-    }
+    } 
 
     init(container) {
         this.container = container;
