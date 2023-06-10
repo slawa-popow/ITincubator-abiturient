@@ -1,20 +1,17 @@
 
 import { MathReader } from "./MathReader"; 
-import { MathResult } from "./MathResult";
 import { CsvFileReader } from "./CsvFileReader";
+import { WinsAnalises } from "./analisers/WinsAnalises";
+import { ConsoleReports} from "./reports/ConsoloReport";
+import { HTMLtarget } from './reports/HTMLreport';
+import { Summary } from "./Summary";
 
 const csvFR = new CsvFileReader('football.csv');
 const mathR = new MathReader(csvFR);
 mathR.load();
 
-let manUnWin: number = 0;
+const sumary = new Summary(new WinsAnalises('Man United'), new ConsoleReports());
+const sumReport = Summary.winsAnalyseHTML('Man United', 'report.html');   
+sumReport.buildAndPrintReport(mathR.mathes);
 
-for (let math of mathR.mathes) {
-    if (math[1] === 'Man United' && math[5] === MathResult.HomeWin) {
-        manUnWin += 1;
-    } else if (math[2] === 'Man United' && math[5] === MathResult.AwayWin) {
-        manUnWin += 1;
-    }
-}
-
-console.log(`Манчестер Юнайтед победил ${manUnWin} раз`);
+ 
