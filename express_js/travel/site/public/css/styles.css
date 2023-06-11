@@ -1,0 +1,38 @@
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+}
+
+body {
+    font-size: 1rem;
+    width: 90%;
+    height: 650px;
+    margin: 0 auto;
+    background-color: rgb(255, 255, 255);
+}
+
+h1 {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.5em;
+    color: #585656;
+}
+
+p {
+    font-size: 0.9em;
+    color: black;
+}
+
+.about {
+    padding: 10px 5px;
+    width: 350px;
+    height: 180px;
+    margin: 0 auto;
+    background-color: rgba(255, 229, 208, 0.678);
+    color: rgb(99, 99, 99);
+    text-align: center;
+}
+.about h2 {
+    color: #337389;
+}

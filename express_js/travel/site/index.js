@@ -2,22 +2,27 @@
  * npm start
  * (запуск nodemon)
  */
-
+import * as url from 'url';
 import express from "express";
-
+import { engine } from 'express-handlebars';
 
 const app = express();
 
 const port = process.env.PORT || 3000;
 
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url)); // __dirname для es6 module
+app.use(express.static(__dirname + '/public')); // подключить стили и прочую статику
+
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
+
 app.get('/', (request, response) => {
-    response.type('text/plain');
-    response.send('Мои путешествия в мечтах');
+    response.render('home');
 });
 
 app.get('/about', (request, response) => {
-    response.type('text/plain');
-    response.send('О себе'); 
+    response.render('about');
 });
 
 app.use((request, response) => {
