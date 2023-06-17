@@ -1,10 +1,26 @@
 /**
+ * Учебрые исходники:
+ * https://github.com/EthanRBrown/web-development-with-node-and-express-2e
+ * 
  * npm start
  * (запуск nodemon)
  */
 import * as url from 'url';
 import express from "express";
 import { engine } from 'express-handlebars';
+
+const mod = (function() {
+    
+    const fortunes = [
+        "Победи  свои  страхи,  или  они  победят  тебя.",
+        "Рекам  нужны  истоки.",
+        "Не  бойся  неведомого.",
+        "Тебя  ждет  приятный  сюрприз.",
+        "Будь  проще  везде,  где  только  можно.",
+    ];
+    const publicApi = {fortunes};
+    return publicApi;
+})();
 
 const app = express();
 
@@ -22,7 +38,8 @@ app.get('/', (request, response) => {
 });
 
 app.get('/about', (request, response) => {
-    response.render('about');
+    const randFortunes = mod.fortunes[Math.floor(Math.random() * mod.fortunes.length)];
+    response.render('about', {fortune: randFortunes});
 });
 
 app.use((request, response) => {
@@ -41,4 +58,33 @@ app.use((error, request, response, next) => {
 app.listen(port, () => {
     console.log(`Сервер запущен http://localhost:${port} \n Нажмите Ctrl+C для остановки.`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

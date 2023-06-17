@@ -36,3 +36,9 @@ p {
 .about h2 {
     color: #337389;
 }
+
+.about-content {
+    margin: 20px 0;
+    width: 100%;
+    border: 1px solid rgb(253, 253, 253);
+}
