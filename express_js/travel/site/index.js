@@ -5,22 +5,14 @@
  * npm start
  * (запуск nodemon)
  */
-import * as url from 'url';
-import express from "express";
-import { engine } from 'express-handlebars';
 
-const mod = (function() {
-    
-    const fortunes = [
-        "Победи  свои  страхи,  или  они  победят  тебя.",
-        "Рекам  нужны  истоки.",
-        "Не  бойся  неведомого.",
-        "Тебя  ждет  приятный  сюрприз.",
-        "Будь  проще  везде,  где  только  можно.",
-    ];
-    const publicApi = {fortunes};
-    return publicApi;
-})();
+import * as url from 'url';
+
+import express from "express";
+
+import { engine } from 'express-handlebars';
+import {home, about, notFound, serverError} from './lib/hands.js'; 
+
 
 const app = express();
 
@@ -33,31 +25,17 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-app.get('/', (request, response) => {
-    response.render('home');
-});
+app.get('/', home);
 
-app.get('/about', (request, response) => {
-    const randFortunes = mod.fortunes[Math.floor(Math.random() * mod.fortunes.length)];
-    response.render('about', {fortune: randFortunes});
-});
+app.get('/about', about);
 
-app.use((request, response) => {
-    response.type('text/plain');
-    response.status(404);
-    response.send('404 - Ничегошеньки не найдено.');
-});
+app.use(notFound);
 
-app.use((error, request, response, next) => {
-    console.log(error.stack);
-    response.type('text/plain');
-    response.status(500);
-    response.send('500 - Ой а что случилось. 500-err');
-});
+app.use(serverError);
 
 app.listen(port, () => {
     console.log(`Сервер запущен http://localhost:${port} \n Нажмите Ctrl+C для остановки.`);
-});
+});  
 
 
 
